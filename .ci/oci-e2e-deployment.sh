@@ -20,6 +20,14 @@ command -v yq >/dev/null 2>&1 || { echo "yq is not installed. Aborting."; exit 1
 command -v kubectl >/dev/null 2>&1 || { echo "kubectl is not installed. Aborting."; exit 1; }
 command -v e2e-appstudio >/dev/null 2>&1 || { echo "e2e-appstudio bin is not installed. Please install it from: https://github.com/redhat-appstudio/e2e-tests."; exit 1; }
 
+if [[ -z "${GITHUB_TOKEN}" ]]; then
+  echo - e "[ERROR] GITHUB_TOKEN env is not set. Aborting."
+fi
+
+if [[ -z "${QUAY_TOKEN}" ]]; then
+  echo - e "[ERROR] QUAY_TOKEN env is not set. Aborting."
+fi
+
 #Stop execution on any error
 trap "catchFinish" EXIT SIGINT
 
@@ -116,5 +124,7 @@ export -f waitAppStudioToBeReady
 export -f checkHASGithubOrg
 
 timeout --foreground 10m bash -c waitAppStudioToBeReady
+# Just a sleep before starting the tests
+sleep 2m
 timeout --foreground 3m bash -c checkHASGithubOrg
 executeE2ETests
