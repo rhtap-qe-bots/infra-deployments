@@ -11,7 +11,7 @@ images:
     newTag: next
 configMapGenerator:
   - literals:
-      - GITHUB_ORG=""
+      - GITHUB_ORG="redhat-appstudio-qe"
     name: github-config
     behavior: replace
 namespace: application-service
