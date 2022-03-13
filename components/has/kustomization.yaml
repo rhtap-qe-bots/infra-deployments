@@ -11,7 +11,7 @@ kind: Kustomization
 images:
 - name: quay.io/redhat-appstudio/application-service
   newName: quay.io/redhat-appstudio/application-service
-  newTag: pene
+  newTag: fceb1de287df85682082b410c48c6fddf36d3ba7b135484798bbf9d3547386fa
 
 configMapGenerator:
 - literals:
