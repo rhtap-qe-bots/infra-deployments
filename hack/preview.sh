@@ -2,6 +2,8 @@
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
 
+OVERLAY=$1
+
 if [ -f $ROOT/hack/preview.env ]; then
     source $ROOT/hack/preview.env
 fi
@@ -78,4 +80,4 @@ fi
 git checkout $MY_GIT_BRANCH
 
 #set the local cluster to point to the current git repo and branch and update the path to development
-$ROOT/hack/util-update-app-of-apps.sh $MY_GIT_REPO_URL development $PREVIEW_BRANCH
+$ROOT/hack/util-update-app-of-apps.sh $MY_GIT_REPO_URL $OVERLAY $PREVIEW_BRANCH
