@@ -89,7 +89,11 @@ createQuayPullSecrets
 
 git remote add ${MY_GIT_FORK_REMOTE} https://github.com/redhat-appstudio-qe/infra-deployments.git
 
-/bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh preview
+# Install sandbox operators
+/bin/bash "$WORKSPACE"/hack/sandbox-e2e-mode.sh
+
+#Install AppStudio
+/bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh e2e
 
 export -f waitAppStudioToBeReady
 export -f waitBuildToBeReady
