@@ -5,6 +5,8 @@ set -o pipefail
 # error on unset variables
 set -u
 
+set -x
+
 export WORKSPACE=$(dirname $(dirname $(readlink -f "$0")));
 export APPLICATION_NAMESPACE="openshift-gitops"
 export APPLICATION_NAME="all-components-staging"
@@ -85,15 +87,20 @@ function executeE2ETests() {
     e2e-appstudio --ginkgo.junit-report="${ARTIFACTS_DIR}"/e2e-report.xml
 }
 
-createQuayPullSecrets
+# createQuayPullSecrets
 
-git remote add ${MY_GIT_FORK_REMOTE} https://github.com/redhat-appstudio-qe/infra-deployments.git
+# git remote add ${MY_GIT_FORK_REMOTE} https://github.com/redhat-appstudio-qe/infra-deployments.git
 
-# Install sandbox operators
-/bin/bash "$WORKSPACE"/hack/sandbox-e2e-mode.sh
+# # Install sandbox operators
+# /bin/bash "$WORKSPACE"/hack/sandbox-e2e-mode.sh
 
-#Install AppStudio
-/bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh e2e
+# #Install AppStudio
+# /bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh e2e
+
+KEYCLOAK_URL="https://$(oc get route/keycloak -n rh-sso -o jsonpath={.spec.host})"
+
+# kubectl patch toolchainconfig/config -n toolchain-host-operator -p ''
+
 
 export -f waitAppStudioToBeReady
 export -f waitBuildToBeReady
