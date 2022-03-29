@@ -39,6 +39,7 @@ git checkout -b $PREVIEW_BRANCH
 $ROOT/hack/util-set-development-repos.sh $MY_GIT_REPO_URL development $PREVIEW_BRANCH
 
 if [ -n "$OVERLAY" ]; then
+    echo "Configuring E2E overlay"
     $ROOT/hack/util-set-development-repos.sh $MY_GIT_REPO_URL $OVERLAY $PREVIEW_BRANCH
 fi
 

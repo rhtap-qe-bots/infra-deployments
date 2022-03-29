@@ -97,8 +97,6 @@ git remote add ${MY_GIT_FORK_REMOTE} https://github.com/redhat-appstudio-qe/infr
 #Install AppStudio
 /bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh e2e
 
-KEYCLOAK_URL="https://$(oc get route/keycloak -n rh-sso -o jsonpath={.spec.host})"
-
 # kubectl patch toolchainconfig/config -n toolchain-host-operator -p ''
 
 
@@ -108,6 +106,10 @@ export -f checkHASGithubOrg
 
 timeout --foreground 10m bash -c waitAppStudioToBeReady
 timeout --foreground 10m bash -c waitBuildToBeReady
+
+KEYCLOAK_URL="https://$(oc get route/keycloak -n rh-sso -o jsonpath={.spec.host})"
+echo "KEYCLOAK URL: $KEYCLOAK_URL"
+
 # Just a sleep before starting the tests
 sleep 2m
 timeout --foreground 3m bash -c checkHASGithubOrg
