@@ -89,13 +89,13 @@ function executeE2ETests() {
 
 # createQuayPullSecrets
 
-# git remote add ${MY_GIT_FORK_REMOTE} https://github.com/redhat-appstudio-qe/infra-deployments.git
+git remote add ${MY_GIT_FORK_REMOTE} https://github.com/redhat-appstudio-qe/infra-deployments.git
 
-# # Install sandbox operators
-# /bin/bash "$WORKSPACE"/hack/sandbox-e2e-mode.sh
+# Install sandbox operators
+/bin/bash "$WORKSPACE"/hack/sandbox-e2e-mode.sh
 
-# #Install AppStudio
-# /bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh e2e
+#Install AppStudio
+/bin/bash "$WORKSPACE"/hack/bootstrap-cluster.sh e2e
 
 KEYCLOAK_URL="https://$(oc get route/keycloak -n rh-sso -o jsonpath={.spec.host})"
 
