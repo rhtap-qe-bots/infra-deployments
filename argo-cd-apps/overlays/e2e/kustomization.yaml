@@ -1,5 +1,4 @@
 resources:
-- ../../base
 - ../development
 - rhsso.yaml
 
