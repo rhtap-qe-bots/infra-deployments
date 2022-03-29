@@ -38,6 +38,10 @@ git checkout -b $PREVIEW_BRANCH
 # this needs to be pushed to your fork to be seen by argocd
 $ROOT/hack/util-set-development-repos.sh $MY_GIT_REPO_URL development $PREVIEW_BRANCH
 
+if [ -n "$OVERLAY" ]; then
+    $ROOT/hack/util-set-development-repos.sh $MY_GIT_REPO_URL $OVERLAY $PREVIEW_BRANCH
+fi
+
 if [ -n "$MY_GITHUB_ORG" ]; then
     $ROOT/hack/util-set-github-org $MY_GITHUB_ORG
 fi
