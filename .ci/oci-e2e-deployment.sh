@@ -13,7 +13,7 @@ export APPLICATION_NAME="all-components-staging"
 
 export TEST_BRANCH_ID=$(date +%s)
 export MY_GIT_FORK_REMOTE="qe"
-export MY_GITHUB_ORG="redhat-appstudio-qe"
+export MY_GITHUB_ORG="rhopp"
 export MY_GITHUB_TOKEN="${GITHUB_TOKEN}"
 
 # Available openshift ci environments https://docs.ci.openshift.org/docs/architecture/step-registry/#available-environment-variables
