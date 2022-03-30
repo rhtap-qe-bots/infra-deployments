@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
 
 OVERLAY=$1
@@ -86,3 +88,5 @@ git checkout $MY_GIT_BRANCH
 
 #set the local cluster to point to the current git repo and branch and update the path to development
 $ROOT/hack/util-update-app-of-apps.sh $MY_GIT_REPO_URL $OVERLAY $PREVIEW_BRANCH
+
+set +x
