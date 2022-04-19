@@ -15,7 +15,7 @@ spec:
       values: |-
         server:
           ingress:
-            hostname: rekor-server.rekor.svc
+            hostname: rekor.apps.ci-ocp-4-10-amd64-aws-us-west-1-lnlmb.hive.aws.ci.openshift.org
             annotations:
               route.openshift.io/termination: "edge"
 
