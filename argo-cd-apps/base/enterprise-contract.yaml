@@ -18,7 +18,7 @@ spec:
       values: |-
         server:
           ingress:
-            hostname: rekor-server.enterprise-contract-service.svc
+            hostname: rekor.apps.cluster-jqbjt.jqbjt.sandbox1622.opentlc.com
             annotations:
               route.openshift.io/termination: "edge"
         mysql:
