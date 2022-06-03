@@ -8,7 +8,7 @@ kind: Kustomization
 images:
   - name: quay.io/redhat-appstudio/application-service
     newName: quay.io/redhat-appstudio/application-service
-    newTag: a7dd01493c00e3d58501d95585e640c653113783
+    newTag: update-spi
 configMapGenerator:
   - literals:
       - GITHUB_ORG=redhat-appstudio-qe
