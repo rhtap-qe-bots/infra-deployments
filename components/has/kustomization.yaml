@@ -6,7 +6,7 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-  - name: quay.io/redhat-appstudio/application-service
+  - name: quay.io/jcollier/application-service
     newName: quay.io/redhat-appstudio/application-service
     newTag: update-spi
 configMapGenerator:
