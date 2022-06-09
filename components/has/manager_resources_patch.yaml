@@ -17,5 +17,5 @@ spec:
             memory: 20Mi
         env:
           - name: IMAGE_REPOSITORY
-            value: ""
+            value: "quay.io/redhat-appstudio-qe/test-images-protected"
 
