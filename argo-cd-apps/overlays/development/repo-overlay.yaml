@@ -28,8 +28,8 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   source:
-    repoURL: https://github.com/redhat-appstudio/infra-deployments.git
-    targetRevision: main
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-main-1654766528
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
