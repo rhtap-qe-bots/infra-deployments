@@ -1,162 +1,158 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=590fc1e906cfa0541f405fa47afcdf64b30f718f
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/cache/base?ref=590fc1e906cfa0541f405fa47afcdf64b30f718f
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=590fc1e906cfa0541f405fa47afcdf64b30f718f
-- https://raw.githubusercontent.com/redhat-appstudio/jvm-build-service/590fc1e906cfa0541f405fa47afcdf64b30f718f/deploy/base/run-maven-component-build-v0.1.yaml
-- https://raw.githubusercontent.com/redhat-appstudio/jvm-build-service/590fc1e906cfa0541f405fa47afcdf64b30f718f/deploy/base/lookup-artifact-location-v0.1.yaml
-- .tekton/
-- namespace.yaml
-- localstack.yaml
-- local-cache-pvc.yaml
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/gabemontero/jvm-build-service/deploy/crds/base?ref=b00aba4dc00c6d7ae009549485d2f76232e0653b
+  - https://github.com/gabemontero/jvm-build-service/deploy/cache/base?ref=b00aba4dc00c6d7ae009549485d2f76232e0653b
+  - https://github.com/gabemontero/jvm-build-service/deploy/operator/base?ref=b00aba4dc00c6d7ae009549485d2f76232e0653b
+  - https://raw.githubusercontent.com/gabemontero/jvm-build-service/b00aba4dc00c6d7ae009549485d2f76232e0653b/deploy/base/run-maven-component-build-v0.1.yaml
+  - https://raw.githubusercontent.com/gabemontero/jvm-build-service/b00aba4dc00c6d7ae009549485d2f76232e0653b/deploy/base/lookup-artifact-location-v0.1.yaml
+  - .tekton/
+  - namespace.yaml
+  - localstack.yaml
+  - local-cache-pvc.yaml
 namespace: jvm-build-service
-
 images:
-- name: hacbs-jvm-cache
-  newName: quay.io/redhat-appstudio/hacbs-jvm-cache
-  newTag: 590fc1e906cfa0541f405fa47afcdf64b30f718f
-- name: quay.io/QUAY_USERNAME/hacbs-jvm-cache
-  newName: quay.io/redhat-appstudio/hacbs-jvm-cache
-  newTag: 590fc1e906cfa0541f405fa47afcdf64b30f718f
-- name: hacbs-jvm-operator
-  newName: quay.io/redhat-appstudio/hacbs-jvm-controller
-  newTag: 590fc1e906cfa0541f405fa47afcdf64b30f718f
-
+  - name: hacbs-jvm-cache
+    newName: quay.io/redhat-appstudio/hacbs-jvm-cache
+    newTag: 590fc1e906cfa0541f405fa47afcdf64b30f718f
+  - name: quay.io/QUAY_USERNAME/hacbs-jvm-cache
+    newName: quay.io/redhat-appstudio/hacbs-jvm-cache
+    newTag: 590fc1e906cfa0541f405fa47afcdf64b30f718f
+  - name: hacbs-jvm-operator
+    newName: registry.build01.ci.openshift.org/ci-op-2d8z5wnj/pipeline
+    newTag: redhat-appstudio-jvm-build-service-image
 patches:
-- target:
-    kind: Deployment
-    name: hacbs-jvm-cache
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_ENDPOINT_OVERRIDE
-        value: "http://localstack:4572"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_REGION
-        value: "us-east-1"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
-        value: "accesskey"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
-        value: "secretkey"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
-        value: "static"
-    # Change strategy to Recreate since PVC is RWO
-    - op: replace
-      path: /spec/strategy
-      value:
-        type: Recreate
-    - op: add
-      path: /spec/template/spec/volumes
-      value:
-      - name: local-cache
-        persistentVolumeClaim:
-          claimName: local-cache
-    - op: add
-      path: /spec/template/spec/containers/0/volumeMounts
-      value:
-      - name: local-cache
-        mountPath: /deployments/cache
-    # reduce CPU request to be able to run on testing instance
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/requests/cpu
-      value: 10m
-    # increase Memory limit
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/limits/memory
-      value: 2Gi
-- target:
-    kind: Deployment
-    name: hacbs-jvm-operator
-  patch: |-
-    # reduce CPU request to be able to run on testing instance
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/requests/cpu
-      value: 10m
-    # Enable removing of taskrun pods
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: JVM_DELETE_TASKRUN_PODS
-        value: "1"
-- target:
-    kind: ClusterRoleBinding
-    name: hacbs-jvm-operator
-  patch: |-
-    - op: replace
-      path: /subjects/0/namespace
-      value: jvm-build-service
-- target:
-    kind: ClusterRoleBinding
-    name: hacbs-jvm-operator
-  patch: |-
-    - op: replace
-      path: /subjects/0/namespace
-      value: jvm-build-service
-- target:
-    kind: ClusterTask
-    name: lookup-artifact-location
-  patch: |-
-    - op: replace
-      path: /spec/steps/0/image
-      value: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor:590fc1e906cfa0541f405fa47afcdf64b30f718f
-- target:
-    kind: ClusterTask
-    name: run-maven-component-build
-  patch: |-
-    - op: replace
-      path: /spec/sidecars/0/env/0/value
-      value: http://hacbs-jvm-cache.jvm-build-service.svc.cluster.local
-    - op: replace
-      path: /spec/sidecars/0/image
-      value: quay.io/redhat-appstudio/hacbs-jvm-sidecar:590fc1e906cfa0541f405fa47afcdf64b30f718f
-    - op: add
-      path: /spec/sidecars/0/env/-
-      value:
-        name: QUARKUS_S3_ENDPOINT_OVERRIDE
-        value: "http://localstack.jvm-build-service.svc.cluster.local:4572"
-    - op: add
-      path: /spec/sidecars/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_REGION
-        value: "us-east-1"
-    - op: add
-      path: /spec/sidecars/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
-        value: "accesskey"
-    - op: add
-      path: /spec/sidecars/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
-        value: "secretkey"
-    - op: add
-      path: /spec/sidecars/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
-        value: "static"
-    # set limits for mvn-goals step
-    - op: add
-      path: /spec/steps/3/resources
-      value:
-        requests:
-          memory: 128Mi
-          cpu: 10m
-        limits:
-          memory: 8Gi
-          cpu: "2"
-
+  - target:
+      kind: Deployment
+      name: hacbs-jvm-cache
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_ENDPOINT_OVERRIDE
+          value: "http://localstack:4572"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_REGION
+          value: "us-east-1"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
+          value: "accesskey"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
+          value: "secretkey"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
+          value: "static"
+      # Change strategy to Recreate since PVC is RWO
+      - op: replace
+        path: /spec/strategy
+        value:
+          type: Recreate
+      - op: add
+        path: /spec/template/spec/volumes
+        value:
+        - name: local-cache
+          persistentVolumeClaim:
+            claimName: local-cache
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts
+        value:
+        - name: local-cache
+          mountPath: /deployments/cache
+      # reduce CPU request to be able to run on testing instance
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 10m
+      # increase Memory limit
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: 2Gi
+  - target:
+      kind: Deployment
+      name: hacbs-jvm-operator
+    patch: |-
+      # reduce CPU request to be able to run on testing instance
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 10m
+      # Enable removing of taskrun pods
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: JVM_DELETE_TASKRUN_PODS
+          value: "1"
+  - target:
+      kind: ClusterRoleBinding
+      name: hacbs-jvm-operator
+    patch: |-
+      - op: replace
+        path: /subjects/0/namespace
+        value: jvm-build-service
+  - target:
+      kind: ClusterRoleBinding
+      name: hacbs-jvm-operator
+    patch: |-
+      - op: replace
+        path: /subjects/0/namespace
+        value: jvm-build-service
+  - target:
+      kind: ClusterTask
+      name: lookup-artifact-location
+    patch: |-
+      - op: replace
+        path: /spec/steps/0/image
+        value: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor:590fc1e906cfa0541f405fa47afcdf64b30f718f
+  - target:
+      kind: ClusterTask
+      name: run-maven-component-build
+    patch: |-
+      - op: replace
+        path: /spec/sidecars/0/env/0/value
+        value: http://hacbs-jvm-cache.jvm-build-service.svc.cluster.local
+      - op: replace
+        path: /spec/sidecars/0/image
+        value: quay.io/redhat-appstudio/hacbs-jvm-sidecar:590fc1e906cfa0541f405fa47afcdf64b30f718f
+      - op: add
+        path: /spec/sidecars/0/env/-
+        value:
+          name: QUARKUS_S3_ENDPOINT_OVERRIDE
+          value: "http://localstack.jvm-build-service.svc.cluster.local:4572"
+      - op: add
+        path: /spec/sidecars/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_REGION
+          value: "us-east-1"
+      - op: add
+        path: /spec/sidecars/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
+          value: "accesskey"
+      - op: add
+        path: /spec/sidecars/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
+          value: "secretkey"
+      - op: add
+        path: /spec/sidecars/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
+          value: "static"
+      # set limits for mvn-goals step
+      - op: add
+        path: /spec/steps/3/resources
+        value:
+          requests:
+            memory: 128Mi
+            cpu: 10m
+          limits:
+            memory: 8Gi
+            cpu: "2"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
