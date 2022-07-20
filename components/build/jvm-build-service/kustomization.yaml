@@ -164,5 +164,8 @@ patches:
           memory: 8Gi
           cpu: "2"
 
+patchesStrategicMerge:
+  - operator-images.yaml
+
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
