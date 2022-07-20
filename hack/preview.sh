@@ -97,6 +97,7 @@ fi
 [ -n "${JVM_BUILD_SERVICE_SIDECAR_IMAGE_TAG}" ] && yq -i e "(.images.[] | select(.name==\"run-maven-component-build\")) |=.newTag=\"${JVM_BUILD_SERVICE_SIDECAR_IMAGE_TAG}\"" $ROOT/components/build/jvm-build-service/kustomization.yaml
 [ -n "${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_REPO}" ] && yq -i e "(.images.[] | select(.name==\"lookup-artifact-location\")) |=.newName=\"${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_REPO}\"" $ROOT/components/build/jvm-build-service/kustomization.yaml
 [ -n "${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_TAG}" ] && yq -i e "(.images.[] | select(.name==\"lookup-artifact-location\")) |=.newTag=\"${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_TAG}\"" $ROOT/components/build/jvm-build-service/kustomization.yaml
+[[ -n "${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_REPO}" && ${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_TAG} ]] && yq -i e "(.spec.template.spec.containers[].env[] | select(.name==\"JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE\")) |=.value=\"${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_REPO}:${JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE_TAG}\"" $ROOT/components/build/jvm-build-service/operator-images.yaml
 
 [ -n "${HAS_IMAGE_REPO}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/application-service\")) |=.newName=\"${HAS_IMAGE_REPO}\"" $ROOT/components/has/kustomization.yaml
 [ -n "${HAS_IMAGE_TAG}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/application-service\")) |=.newTag=\"${HAS_IMAGE_TAG}\"" $ROOT/components/has/kustomization.yaml
