@@ -1,97 +1,92 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=1845faaee7af46d4e984c940189ca82712be4079
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/cache/base?ref=1845faaee7af46d4e984c940189ca82712be4079
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=1845faaee7af46d4e984c940189ca82712be4079
-- .tekton/
-- namespace.yaml
-- localstack.yaml
-- local-cache-pvc.yaml
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/dwalluck/jvm-build-service/deploy/crds/base?ref=f3b832ff49a6c2ebd9450d4c300404360b606b0d
+  - https://github.com/dwalluck/jvm-build-service/deploy/cache/base?ref=f3b832ff49a6c2ebd9450d4c300404360b606b0d
+  - https://github.com/dwalluck/jvm-build-service/deploy/operator/base?ref=f3b832ff49a6c2ebd9450d4c300404360b606b0d
+  - .tekton/
+  - namespace.yaml
+  - localstack.yaml
+  - local-cache-pvc.yaml
 namespace: jvm-build-service
-
 images:
-- name: hacbs-jvm-cache
-  newName: quay.io/redhat-appstudio/hacbs-jvm-cache
-  newTag: 1845faaee7af46d4e984c940189ca82712be4079
-- name: quay.io/QUAY_USERNAME/hacbs-jvm-cache
-  newName: quay.io/redhat-appstudio/hacbs-jvm-cache
-  newTag: 1845faaee7af46d4e984c940189ca82712be4079
-- name: hacbs-jvm-operator
-  newName: quay.io/redhat-appstudio/hacbs-jvm-controller
-  newTag: 1845faaee7af46d4e984c940189ca82712be4079
-- name: run-maven-component-build
-  newName: quay.io/redhat-appstudio/hacbs-jvm-sidecar
-  newTag: 1845faaee7af46d4e984c940189ca82712be4079
-- name: lookup-artifact-location
-  newName: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor
-  newTag: 1845faaee7af46d4e984c940189ca82712be4079
-
+  - name: hacbs-jvm-cache
+    newName: registry.build01.ci.openshift.org/ci-op-v2kiwfwb/pipeline
+    newTag: redhat-appstudio-jvm-build-service-cache-image
+  - name: quay.io/QUAY_USERNAME/hacbs-jvm-cache
+    newName: quay.io/redhat-appstudio/hacbs-jvm-cache
+    newTag: 1845faaee7af46d4e984c940189ca82712be4079
+  - name: hacbs-jvm-operator
+    newName: registry.build01.ci.openshift.org/ci-op-v2kiwfwb/pipeline
+    newTag: redhat-appstudio-jvm-build-service-image
+  - name: run-maven-component-build
+    newName: registry.build01.ci.openshift.org/ci-op-v2kiwfwb/pipeline
+    newTag: redhat-appstudio-jvm-build-service-sidecar-image
+  - name: lookup-artifact-location
+    newName: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor
+    newTag: 1845faaee7af46d4e984c940189ca82712be4079
 patches:
-- target:
-    kind: Deployment
-    name: hacbs-jvm-cache
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_ENDPOINT_OVERRIDE
-        value: "http://localstack:4572"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_REGION
-        value: "us-east-1"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
-        value: "accesskey"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
-        value: "secretkey"
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
-        value: "static"
-    # Change strategy to Recreate since PVC is RWO
-    - op: replace
-      path: /spec/strategy
-      value:
-        type: Recreate
-    - op: add
-      path: /spec/template/spec/volumes
-      value:
-      - name: local-cache
-        persistentVolumeClaim:
-          claimName: local-cache
-    - op: add
-      path: /spec/template/spec/containers/0/volumeMounts
-      value:
-      - name: local-cache
-        mountPath: /deployments/cache
-    # reduce CPU request to be able to run on testing instance
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/requests/cpu
-      value: 10m
-    # increase Memory limit
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/limits/memory
-      value: 2Gi
-- target:
-    kind: Deployment
-    name: hacbs-jvm-operator
-  patch: |-
-    # reduce CPU request to be able to run on testing instance
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/requests/cpu
-      value: 10m
-
+  - target:
+      kind: Deployment
+      name: hacbs-jvm-cache
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_ENDPOINT_OVERRIDE
+          value: "http://localstack:4572"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_REGION
+          value: "us-east-1"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
+          value: "accesskey"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
+          value: "secretkey"
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
+          value: "static"
+      # Change strategy to Recreate since PVC is RWO
+      - op: replace
+        path: /spec/strategy
+        value:
+          type: Recreate
+      - op: add
+        path: /spec/template/spec/volumes
+        value:
+        - name: local-cache
+          persistentVolumeClaim:
+            claimName: local-cache
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts
+        value:
+        - name: local-cache
+          mountPath: /deployments/cache
+      # reduce CPU request to be able to run on testing instance
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 10m
+      # increase Memory limit
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: 2Gi
+  - target:
+      kind: Deployment
+      name: hacbs-jvm-operator
+    patch: |-
+      # reduce CPU request to be able to run on testing instance
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 10m
 patchesStrategicMerge:
   - operator-images.yaml
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
