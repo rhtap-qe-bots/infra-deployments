@@ -1,30 +1,26 @@
 resources:
-- openshift-pipelines/
-- tekton-results/
-- build-templates/
-- pipelines-as-code/
-- tekton-chains/
-- .tekton/
-- pvc-cleaner
-- build-service/
-- infra-deployments-ci/
-- shared-resources
-- jvm-build-service/
-
+  - openshift-pipelines/
+  - tekton-results/
+  - build-templates/
+  - pipelines-as-code/
+  - tekton-chains/
+  - .tekton/
+  - pvc-cleaner
+  - build-service/
+  - infra-deployments-ci/
+  - shared-resources
+  - jvm-build-service/
 generatorOptions:
   disableNameSuffixHash: true
-
 configMapGenerator:
-- name: build-pipelines-defaults
-  namespace: build-templates
-  literals:
-  - default_build_bundle=quay.io/redhat-appstudio/build-templates-bundle:7e9728af099c5db53dda5f60e97d2b75f7e00d7d
-
+  - name: build-pipelines-defaults
+    namespace: build-templates
+    literals:
+      - default_build_bundle=quay.io/redhat-appstudio-qe/test-images:pipeline-bundle-9404e9066092b502724f2a8c2ef310645ed79bd9
 # Skip applying the Tekton operands while the Tekton operator is being installed.
 # See more information about this option, here:
 # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#skip-dry-run-for-new-custom-resources-types
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
