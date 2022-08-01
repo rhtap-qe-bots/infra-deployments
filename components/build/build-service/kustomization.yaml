@@ -1,15 +1,11 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/build-service/config/default?ref=1d40a8f6b897c6deb360f5ccfb8b20ed04a5f9cf
-- .tekton/
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/gabemontero/build-service/config/default?ref=0cac4355081f6763bfa862105a3ca392a9aeb2af
+  - .tekton/
 namespace: build-service
-
 images:
-- name: quay.io/redhat-appstudio/build-service
-  newName: quay.io/redhat-appstudio/build-service
-  newTag: 1d40a8f6b897c6deb360f5ccfb8b20ed04a5f9cf
-
-
+  - name: quay.io/redhat-appstudio/build-service
+    newName: registry.build01.ci.openshift.org/ci-op-01csx8kh/pipeline
+    newTag: redhat-appstudio-build-service-image
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
