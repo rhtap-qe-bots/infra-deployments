@@ -14,4 +14,4 @@ spec:
             - name: JVM_BUILD_SERVICE_SIDECAR_IMAGE
               value: quay.io/redhat-appstudio/hacbs-jvm-sidecar:345ea0982fc5f57ef55c3e7e689e460e70cd5313
             - name: JVM_DELETE_TASKRUN_PODS
-              value: "1"
+              value: "0"
