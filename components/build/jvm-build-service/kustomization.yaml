@@ -1,38 +1,33 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=3efb510b4f16a08cb4209ac7100d26488dabb0e9
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=3efb510b4f16a08cb4209ac7100d26488dabb0e9
-- .tekton/
-- namespace.yaml
-- localstack.yaml
-- local-cache-pvc.yaml
-- system-config.yaml
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/stuartwdouglas/jvm-build-service/deploy/crds/base?ref=dc2de9e18370519e1b27af72a9c9dc2e888aecdd
+  - https://github.com/stuartwdouglas/jvm-build-service/deploy/operator/base?ref=dc2de9e18370519e1b27af72a9c9dc2e888aecdd
+  - .tekton/
+  - namespace.yaml
+  - localstack.yaml
+  - local-cache-pvc.yaml
+  - system-config.yaml
 namespace: jvm-build-service
-
 images:
-- name: hacbs-jvm-operator
-  newName: quay.io/redhat-appstudio/hacbs-jvm-controller
-  newTag: 3efb510b4f16a08cb4209ac7100d26488dabb0e9
-- name: run-maven-component-build
-  newName: quay.io/redhat-appstudio/hacbs-jvm-sidecar
-  newTag: 3efb510b4f16a08cb4209ac7100d26488dabb0e9
-- name: lookup-artifact-location
-  newName: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor
-  newTag: 3efb510b4f16a08cb4209ac7100d26488dabb0e9
-
+  - name: hacbs-jvm-operator
+    newName: registry.build01.ci.openshift.org/ci-op-qv5q7k1w/pipeline
+    newTag: redhat-appstudio-jvm-build-service-image
+  - name: run-maven-component-build
+    newName: registry.build01.ci.openshift.org/ci-op-qv5q7k1w/pipeline
+    newTag: redhat-appstudio-jvm-build-service-sidecar-image
+  - name: lookup-artifact-location
+    newName: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor
+    newTag: 3efb510b4f16a08cb4209ac7100d26488dabb0e9
 patches:
-- target:
-    kind: Deployment
-    name: hacbs-jvm-operator
-  patch: |-
-    # reduce CPU request to be able to run on testing instance
-    - op: replace
-      path: /spec/template/spec/containers/0/resources/requests/cpu
-      value: 10m
-
+  - target:
+      kind: Deployment
+      name: hacbs-jvm-operator
+    patch: |-
+      # reduce CPU request to be able to run on testing instance
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: 10m
 patchesStrategicMerge:
   - operator-images.yaml
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
