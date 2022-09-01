@@ -10,8 +10,8 @@ spec:
         - name: hacbs-jvm-operator
           env:
             - name: JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE
-              value: quay.io/redhat-appstudio/hacbs-jvm-build-request-processor:a4787c4c72c7f606515e19dc3057e79779b4f5a1
+              value: registry.build01.ci.openshift.org/ci-op-wkxq57h4/pipeline:redhat-appstudio-jvm-build-service-reqprocessor-image
             - name: JVM_BUILD_SERVICE_SIDECAR_IMAGE
-              value: quay.io/redhat-appstudio/hacbs-jvm-sidecar:a4787c4c72c7f606515e19dc3057e79779b4f5a1
+              value: registry.build01.ci.openshift.org/ci-op-wkxq57h4/pipeline:redhat-appstudio-jvm-build-service-sidecar-image
             - name: JVM_DELETE_TASKRUN_PODS
               value: "1"
