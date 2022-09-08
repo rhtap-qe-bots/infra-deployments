@@ -21,7 +21,7 @@ spec:
     enable-custom-tasks: false
     disable-affinity-assistant: false
   pruner:
-    keep: 10
+    keep: 1000
     resources:
       - pipelinerun
     schedule: 0/10 * * * *
