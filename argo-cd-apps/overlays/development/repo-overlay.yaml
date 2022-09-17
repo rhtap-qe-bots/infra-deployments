@@ -13,4 +13,4 @@ spec:
     spec:
       source:
         repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
-        targetRevision: preview-main
+        targetRevision: preview-preview-main
