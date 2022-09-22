@@ -2,11 +2,16 @@
   {
     "op": "replace",
     "path": "/data/VAULTHOST",
-    "value": "https://vault-spi-vault.apps.appstudio-kcp.g2pi.p1.openshiftapps.com"
+    "value": "https://vault-spi-vault.apps.cluster-mhvts.mhvts.sandbox1760.opentlc.com"
   },
   {
     "op": "replace",
     "path": "/data/BASEURL",
-    "value": "https://spi-oauth-kcp-5ttoh8uv3y7i.apps.appstudio-kcp.g2pi.p1.openshiftapps.com"
+    "value": "https://spi-oauth-kcp-nwtbkin0d3d2.apps.cluster-mhvts.mhvts.sandbox1760.opentlc.com"
+  },
+  {
+    "op": "add",
+    "path": "/data/VAULTINSECURETLS",
+    "value": "true"
   }
 ]
