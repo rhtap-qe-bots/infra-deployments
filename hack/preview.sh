@@ -59,8 +59,7 @@ VAULT_HOST="https://vault-spi-vault.apps.${CLUSTER_URL_HOST}"
 $ROOT/hack/util-patch-spi-config.sh $VAULT_HOST $SPI_BASE_URL "true"
 # configure the secrets and providers in SPI
 TMP_FILE=$(mktemp)
-yq e ".sharedSecret=\"${SHARED_SECRET:-$(openssl rand -hex 20)}\"" $ROOT/components/spi/base/config.yaml | \
-    yq e ".serviceProviders[0].type=\"${SPI_TYPE:-GitHub}\"" - | \
+yq e ".serviceProviders[0].type=\"${SPI_TYPE:-GitHub}\"" $ROOT/components/spi/base/config.yaml | \
     yq e ".serviceProviders[0].clientId=\"${SPI_CLIENT_ID:-app-client-id}\"" - | \
     yq e ".serviceProviders[0].clientSecret=\"${SPI_CLIENT_SECRET:-app-secret}\"" - > $TMP_FILE
 oc --kubeconfig ${KCP_KUBECONFIG}  create -n spi-system secret generic shared-configuration-file --from-file=config.yaml=$TMP_FILE --dry-run=client -o yaml | oc  --kubeconfig ${KCP_KUBECONFIG}  apply -f -
@@ -72,6 +71,41 @@ echo "SPI configured"
 [ -n "${HAS_IMAGE_TAG}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/application-service\")) |=.newTag=\"${HAS_IMAGE_TAG}\"" $ROOT/components/application-service/kustomization.yaml
 [[ -n "${HAS_PR_OWNER}" && "${HAS_PR_SHA}" ]] && yq -i e "(.resources[] | select(. ==\"*github.com/redhat-appstudio/application-service*\")) |= \"https://github.com/${HAS_PR_OWNER}/application-service/config/default?ref=${HAS_PR_SHA}\"" $ROOT/components/application-service/kustomization.yaml
 [ -n "${HAS_DEFAULT_IMAGE_REPOSITORY}" ] && yq -i e "(.spec.template.spec.containers[].env[] | select(.name ==\"IMAGE_REPOSITORY\").value) |= \"${HAS_DEFAULT_IMAGE_REPOSITORY}\"" $ROOT/components/application-service/base/manager_resources_patch.yaml
+
+# evaluate APIExports pointers
+evaluate_apiexports() {
+  APIEXPORT_FILES=$1
+  NEW_IDENTITY_HASHES=$(oc get apiexports.apis.kcp.dev -o jsonpath='{range .items[*]}{@.metadata.name}:{@.status.identityHash}{"\n"}{end}' --kubeconfig ${KCP_KUBECONFIG})
+  IDENTITY_HASHES=$(echo -e "$IDENTITY_HASHES\n$NEW_IDENTITY_HASHES")
+  for APIEXPORTFILE in $APIEXPORT_FILES; do
+    REQUESTS=$(yq e '.spec.permissionClaims.[] | select(.identityHash).identityHash' $APIEXPORTFILE | sort -u)
+    for REQUEST in $REQUESTS; do
+      IDENTITY_HASH=$(echo "$IDENTITY_HASHES" | grep "^$REQUEST:" | cut -f2 -d":")
+      if [ -z "$IDENTITY_HASH" ]; then
+        # find APIExport
+        for APIEXPORTFILE2 in $APIEXPORT_FILES; do
+          if [ "$(yq '.metadata.name' $APIEXPORTFILE2)" == "$REQUEST" ]; then
+            oc apply -f $APIEXPORTFILE2 --kubeconfig ${KCP_KUBECONFIG}
+            IDENTITY_HASH=$(oc get -f $APIEXPORTFILE2 --kubeconfig ${KCP_KUBECONFIG} -o jsonpath='{.status.identityHash}')
+            IDENTITY_HASHES=$(echo -e "$IDENTITY_HASHES\n$REQUEST:$IDENTITY_HASH")
+            break
+          fi
+        done
+      fi
+      if [ -z "$IDENTITY_HASH" ]; then
+        echo Unknown IDENTITY_HASH for $REQUEST
+      fi
+      sed -i "s/\b$REQUEST\b/$IDENTITY_HASH/g" $APIEXPORTFILE
+    done
+  done
+}
+APIEXPORTS=$(find -name '*apiexport*.yaml' | grep overlays/dev)
+evaluate_apiexports "$(echo $APIEXPORTS | grep -v '/hacbs/')"
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws redhat-hacbs
+evaluate_apiexports "$(echo $APIEXPORTS | grep '/hacbs/')"
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws redhat-appstudio
 
 if ! git diff --exit-code --quiet; then
     git commit -a -m "Preview mode, do not merge into main"
