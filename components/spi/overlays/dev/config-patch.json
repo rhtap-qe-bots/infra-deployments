@@ -2,11 +2,16 @@
   {
     "op": "replace",
     "path": "/data/VAULTHOST",
-    "value": ""
+    "value": "https://vault-spi-vault.apps.rhopp20221004.devcluster.openshift.com"
   },
   {
     "op": "replace",
     "path": "/data/BASEURL",
-    "value": ""
+    "value": "https://spi-oauth-kcp-mg3cli56k3h2.apps.rhopp20221004.devcluster.openshift.com"
+  },
+  {
+    "op": "add",
+    "path": "/data/VAULTINSECURETLS",
+    "value": "true"
   }
 ]
