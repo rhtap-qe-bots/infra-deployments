@@ -28,6 +28,9 @@ if ! git diff --exit-code --quiet; then
     exit 1
 fi
 
+APPSTUDIO_WORKSPACE=${APPSTUDIO_WORKSPACE:-"redhat-appstudio"}
+HACBS_WORKSPACE=${HACBS_WORKSPACE:-"redhat-hacbs"}
+
 export PIPELINE_SERVICE_WORKSPACE=${PIPELINE_SERVICE_WORKSPACE:-"redhat-pipeline-service-compute"}
 if [ -n "$PIPELINE_SERVICE_IDENTITY_HASH" ]; then
   IDENTITY_HASHES="pipeline-service:$PIPELINE_SERVICE_IDENTITY_HASH"
@@ -51,7 +54,7 @@ else
 fi
 
 # Ensure that we are in redhat-appstudio workspace
-KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:redhat-appstudio
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:${APPSTUDIO_WORKSPACE}
 
 # Create preview branch for preview configuration
 PREVIEW_BRANCH=preview-${MY_GIT_BRANCH}${TEST_BRANCH_ID+-$TEST_BRANCH_ID}
@@ -125,9 +128,9 @@ evaluate_apiexports() {
 }
 
 APIEXPORTS=$(find ${ROOT}/components -name '*apiexport*.yaml' | grep overlays/dev)
-KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:redhat-appstudio
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:${APPSTUDIO_WORKSPACE}
 evaluate_apiexports "$(echo "$APIEXPORTS" | grep -v '/components/hacbs/')"
-KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:redhat-hacbs
+KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:${HACBS_WORKSPACE}
 evaluate_apiexports "$(echo "$APIEXPORTS" | grep '/components/hacbs/')"
 
 if ! git diff --exit-code --quiet; then
@@ -155,7 +158,7 @@ if echo $APPS | grep -q spi-vault; then
     SPI_APP_ROLE_FILE=.tmp/approle_secret.yaml
     if [ -f "$SPI_APP_ROLE_FILE" ]; then
         echo "$SPI_APP_ROLE_FILE exists."
-        KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:redhat-appstudio
+        KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}:${APPSTUDIO_WORKSPACE}
         kubectl apply -f $SPI_APP_ROLE_FILE  -n spi-system  --kubeconfig ${KCP_KUBECONFIG}
     fi
     echo "Vault init complete"
@@ -175,8 +178,11 @@ while [ -n "$(oc get --kubeconfig ${CLUSTER_KUBECONFIG} applications.argoproj.io
 done
 
 # Create customers workspace with bindings
-${ROOT}/hack/create-user-workspace.sh appstudio
-${ROOT}/hack/create-user-workspace.sh hacbs
+export USER_APPSTUDIO_WORKSPACE=${USER_APPSTUDIO_WORKSPACE-"appstudio"}
+export USER_HACBS_WORKSPACE=${USER_HACBS_WORKSPACE-"hacbs"}
+
+USER_WORKSPACE=${USER_APPSTUDIO_WORKSPACE-"appstudio"} ${ROOT}/hack/create-user-workspace.sh appstudio
+USER_WORKSPACE=${USER_HACBS_WORKSPACE-"hacbs"} ${ROOT}/hack/create-user-workspace.sh hacbs
 
 KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}
 
