@@ -2,11 +2,16 @@
   {
     "op": "replace",
     "path": "/data/VAULTHOST",
-    "value": ""
+    "value": "https://vault-spi-vault.apps.cluster-srg9d.srg9d.sandbox1352.opentlc.com"
   },
   {
     "op": "replace",
     "path": "/data/BASEURL",
-    "value": ""
+    "value": "https://spi-oauth-kcp-b6xbi2dyubss.apps.cluster-srg9d.srg9d.sandbox1352.opentlc.com"
+  },
+  {
+    "op": "add",
+    "path": "/data/VAULTINSECURETLS",
+    "value": "true"
   }
 ]
