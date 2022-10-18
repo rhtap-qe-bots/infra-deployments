@@ -17,14 +17,14 @@ spec:
   - group: ""
     resource: serviceaccounts
   - group: tekton.dev
-    identityHash: pipeline-service
+    identityHash: 72b2990e51b1931e9fee86e67091b721a8c32f407d762fc847d9d2316a988b52
     resource: pipelineruns
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: cc525c308fac9dfc8a6910a8544e5f9604e634c02e3c8b720ba72c9c36570f2a
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: cc525c308fac9dfc8a6910a8544e5f9604e634c02e3c8b720ba72c9c36570f2a
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: cc525c308fac9dfc8a6910a8544e5f9604e634c02e3c8b720ba72c9c36570f2a
     resource: applicationsnapshots
