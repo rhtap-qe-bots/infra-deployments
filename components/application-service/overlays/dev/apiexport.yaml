@@ -28,8 +28,8 @@ spec:
     identityHash: application-api
     resource: environments
   - group: appstudio.redhat.com
-    identityHash: spi
+    identityHash: 1cf7ebc3f716a11ea335520dab43e4ef8d83b8bd8d5f4f5b7b53003aa39e361f
     resource: spiaccesstokens
   - group: appstudio.redhat.com
-    identityHash: spi
+    identityHash: 1cf7ebc3f716a11ea335520dab43e4ef8d83b8bd8d5f4f5b7b53003aa39e361f
     resource: spiaccesstokenbindings

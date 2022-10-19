@@ -10,7 +10,7 @@ spec:
   - group: ""
     resource: namespaces
   - group: managed-gitops.redhat.com
-    identityHash: gitops-api
+    identityHash: 40c325ead31eb97185dea53081960fa998b7fa4c543d4b482e165cc31b2cef1e
     resource: gitopsdeployments
   - group: appstudio.redhat.com
     identityHash: application-api
