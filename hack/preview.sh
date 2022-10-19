@@ -1,11 +1,19 @@
 #!/bin/bash
 
-set -e
-
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
 
 source ${ROOT}/hack/flags.sh "The preview.sh enable preview mode used for development and testing on non-production clusters / kcp instances."
 MODE=${MODE:-preview} parse_flags $@
+
+if [ -z "$MY_GIT_FORK_REMOTE" ]; then
+    echo "Set MY_GIT_FORK_REMOTE environment to name of your fork remote"
+    exit 1
+fi
+
+if [ -z "${ROOT_WORKSPACE}" ]; then
+    echo "Set ROOT_WORKSPACE environment variable or include to hack/preview.env"
+    exit 1
+fi
 
 MY_GIT_REPO_URL=$(git ls-remote --get-url $MY_GIT_FORK_REMOTE | sed 's|^git@github.com:|https://github.com/|')
 MY_GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -28,7 +36,7 @@ if [ -n "$PIPELINE_SERVICE_IDENTITY_HASH" ]; then
   IDENTITY_HASHES="pipeline-service:$PIPELINE_SERVICE_IDENTITY_HASH"
 else
   KUBECONFIG=${KCP_KUBECONFIG} kubectl ws ${ROOT_WORKSPACE}
-  if KUBECONFIG=${KCP_KUBECONFIG} kubectl ws $PIPELINE_SERVICE_WORKSPACE &>/dev/null; then
+  if KUBECONFIG=${KCP_KUBECONFIG} kubectl ws $PIPELINE_SERVICE_WORKSPACE; then
     IDENTITY_HASH=$(oc get apiexport kubernetes --kubeconfig ${KCP_KUBECONFIG} -o jsonpath='{.status.identityHash}')
     IDENTITY_HASHES="pipeline-service:$IDENTITY_HASH"
   elif [ "$PIPELINE_SERVICE_LOCAL_DEPLOY" == "true" ]; then
@@ -67,8 +75,15 @@ echo "start spi config"
 CLUSTER_URL_HOST=$(oc whoami --kubeconfig ${CLUSTER_KUBECONFIG} --show-console | sed 's|https://console-openshift-console.apps.||')
 if ! oc get namespace spi-system --kubeconfig ${KCP_KUBECONFIG} &>/dev/null; then
   oc create namespace spi-system --kubeconfig ${KCP_KUBECONFIG}
-  oc create route edge -n spi-system --service spi-oauth-service --port 8000 spi-oauth --kubeconfig ${KCP_KUBECONFIG}
+  count=1
+  while [[ "${count}" -le 6 ]]; do
+      result=0
+      if [[ oc create route edge -n spi-system --service spi-oauth-service --port 8000 spi-oauth --kubeconfig ${KCP_KUBECONFIG} -eq 0 ]]; then break; fi
+      count="$((count + 1))"
+      sleep 20
+  done
 fi
+
 export SPI_BASE_URL=https://$(kubectl --kubeconfig ${KCP_KUBECONFIG} get route/spi-oauth -n spi-system -o jsonpath='{.status.ingress[0].host}')
 VAULT_HOST="https://vault-spi-vault.apps.${CLUSTER_URL_HOST}"
 $ROOT/hack/util-patch-spi-config.sh $VAULT_HOST $SPI_BASE_URL "true"
@@ -76,12 +91,12 @@ $ROOT/hack/util-patch-spi-config.sh $VAULT_HOST $SPI_BASE_URL "true"
 TMP_FILE=$(mktemp)
 yq e ".serviceProviders[0].type=\"${SPI_TYPE:-GitHub}\"" $ROOT/components/spi/base/config.yaml | \
     yq e ".serviceProviders[0].clientId=\"${SPI_CLIENT_ID:-app-client-id}\"" - | \
-    yq e ".serviceProviders[0].clientSecret=\"${SPI_CLIENT_SECRET:-app-secret}\"" - | \
+    yq e ".serviceProviders[0].clientSecret=\"${SPI_CLIENT_SECRET:-app-secret}\""  - | \
     yq e ".serviceProviders[1].type=\"${SPI_TYPE:-Quay}\"" - | \
     yq e ".serviceProviders[1].clientId=\"${SPI_CLIENT_ID:-app-client-id}\"" - | \
     yq e ".serviceProviders[1].clientSecret=\"${SPI_CLIENT_SECRET:-app-secret}\"" - > $TMP_FILE
 
-oc --kubeconfig ${KCP_KUBECONFIG} create -n spi-system secret generic shared-configuration-file --from-file=config.yaml=$TMP_FILE --dry-run=client -o yaml | oc --kubeconfig ${KCP_KUBECONFIG} apply -f -
+oc --kubeconfig ${KCP_KUBECONFIG}  create -n spi-system secret generic shared-configuration-file --from-file=config.yaml=$TMP_FILE --dry-run=client -o yaml | oc  --kubeconfig ${KCP_KUBECONFIG}  apply -f -
 rm $TMP_FILE
 echo "SPI configured"
 
