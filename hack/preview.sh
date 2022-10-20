@@ -75,13 +75,7 @@ echo "start spi config"
 CLUSTER_URL_HOST=$(oc whoami --kubeconfig ${CLUSTER_KUBECONFIG} --show-console | sed 's|https://console-openshift-console.apps.||')
 if ! oc get namespace spi-system --kubeconfig ${KCP_KUBECONFIG} &>/dev/null; then
   oc create namespace spi-system --kubeconfig ${KCP_KUBECONFIG}
-  count=1
-  while [[ "${count}" -le 6 ]]; do
-      result=0
-      if [[ oc create route edge -n spi-system --service spi-oauth-service --port 8000 spi-oauth --kubeconfig ${KCP_KUBECONFIG} -eq 0 ]]; then break; fi
-      count="$((count + 1))"
-      sleep 20
-  done
+  timeout 2m bash -x -c -- 'while ! oc create route edge -n spi-system --service spi-oauth-service --port 8000 spi-oauth --kubeconfig ${KCP_KUBECONFIG}; do sleep 1; done'
 fi
 
 export SPI_BASE_URL=https://$(kubectl --kubeconfig ${KCP_KUBECONFIG} get route/spi-oauth -n spi-system -o jsonpath='{.status.ingress[0].host}')
