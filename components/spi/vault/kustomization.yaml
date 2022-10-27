@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: spi-vault
 
 resources:
-  - https://github.com/redhat-appstudio/service-provider-integration-operator/config/vault/openshift?ref=8a7b2649611a0421fe9b29bcfbfdbdac4ba82bef
+  - https://github.com/redhat-appstudio/service-provider-integration-operator/config/vault/openshift?ref=9ff6755e6df1cdb757d5f2c8c34822f7c9d41743
