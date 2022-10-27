@@ -2,11 +2,16 @@
   {
     "op": "replace",
     "path": "/data/VAULTHOST",
-    "value": ""
+    "value": "https://vault-spi-vault.apps.ci-ln-5crb362-76ef8.origin-ci-int-aws.dev.rhcloud.com"
   },
   {
     "op": "replace",
     "path": "/data/BASEURL",
-    "value": ""
+    "value": "https://spi-oauth-kcp-8483qv4gk1bl.apps.ci-ln-5crb362-76ef8.origin-ci-int-aws.dev.rhcloud.com"
+  },
+  {
+    "op": "add",
+    "path": "/data/VAULTINSECURETLS",
+    "value": "true"
   }
 ]
