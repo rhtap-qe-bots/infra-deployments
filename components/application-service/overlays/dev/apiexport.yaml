@@ -13,23 +13,23 @@ spec:
   - group: ""
     resource: configmaps
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 5cb38a75df4e12af24d5f456e1587981175dbbeaa71d7d67c1c598ab81ec1572
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 5cb38a75df4e12af24d5f456e1587981175dbbeaa71d7d67c1c598ab81ec1572
     resource: applicationsnapshotenvironmentbindings
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 5cb38a75df4e12af24d5f456e1587981175dbbeaa71d7d67c1c598ab81ec1572
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 5cb38a75df4e12af24d5f456e1587981175dbbeaa71d7d67c1c598ab81ec1572
     resource: componentdetectionqueries
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 5cb38a75df4e12af24d5f456e1587981175dbbeaa71d7d67c1c598ab81ec1572
     resource: environments
   - group: appstudio.redhat.com
-    identityHash: spi
+    identityHash: 4145e167d4098d7f5f116983e411de05a620d1ce2a5ac601f05380f429eb7f5b
     resource: spiaccesstokens
   - group: appstudio.redhat.com
-    identityHash: spi
+    identityHash: 4145e167d4098d7f5f116983e411de05a620d1ce2a5ac601f05380f429eb7f5b
     resource: spiaccesstokenbindings
