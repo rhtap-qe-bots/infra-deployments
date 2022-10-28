@@ -10,7 +10,7 @@ images:
     newTag: sha-8a7b2649611a0421fe9b29bcfbfdbdac4ba82bef
   - name: quay.io/redhat-appstudio/service-provider-integration-oauth
     newName: quay.io/redhat-appstudio/service-provider-integration-oauth
-    newTag: sha-8a7b2649611a0421fe9b29bcfbfdbdac4ba82bef
+    newTag: 89010e72f984f96e1a86f4b193b3b8a88836eabf
 
 namespace: spi-system
 
