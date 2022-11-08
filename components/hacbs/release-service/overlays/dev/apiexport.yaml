@@ -29,3 +29,6 @@ spec:
   - group: tekton.dev
     identityHash: pipeline-service
     resource: pipelineruns
+  - group: appstudio.redhat.com
+    identityHash: enterprisecontract
+    resource: enterprisecontractpolicies
