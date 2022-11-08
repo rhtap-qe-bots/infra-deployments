@@ -1,5 +1,5 @@
 resources:
-- https://github.com/redhat-appstudio/application-service/config/kcp?ref=479ab47a47d677f2127a19504e6ac655cb2ab0d5
+- https://github.com/redhat-appstudio/application-service/config/kcp?ref=a28d55be26dd38c975b3238c286ee782f3d42f98
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -7,7 +7,7 @@ kind: Kustomization
 images:
 - name: quay.io/redhat-appstudio/application-service
   newName: quay.io/redhat-appstudio/application-service
-  newTag: 479ab47a47d677f2127a19504e6ac655cb2ab0d5
+  newTag: a28d55be26dd38c975b3238c286ee782f3d42f98
 
 namespace: application-service
 
