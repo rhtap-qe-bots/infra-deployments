@@ -10,17 +10,17 @@ spec:
   - group: ""
     resource: namespaces
   - group: managed-gitops.redhat.com
-    identityHash: gitops-api
+    identityHash: 64efc47ce8230eebd4b60025b5ba493319d9819ad9d298ec63337a6762713518
     resource: gitopsdeployments
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: ddfe18b21c3238c04d73c1a86c04ec357e5cd5437281267a9bde4431ec89e7b4
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: ddfe18b21c3238c04d73c1a86c04ec357e5cd5437281267a9bde4431ec89e7b4
     resource: applicationsnapshotenvironmentbindings
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: ddfe18b21c3238c04d73c1a86c04ec357e5cd5437281267a9bde4431ec89e7b4
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: ddfe18b21c3238c04d73c1a86c04ec357e5cd5437281267a9bde4431ec89e7b4
     resource: environments
