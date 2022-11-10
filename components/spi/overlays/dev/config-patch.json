@@ -2,11 +2,16 @@
   {
     "op": "replace",
     "path": "/data/VAULTHOST",
-    "value": ""
+    "value": "https://vault-spi-vault.apps.ci-ocp-4-10-amd64-aws-us-east-1-s4km4.hive.aws.ci.openshift.org"
   },
   {
     "op": "replace",
     "path": "/data/BASEURL",
-    "value": ""
+    "value": "https://spi-oauth-kcp-2e98ojis9im5.apps.ci-ocp-4-10-amd64-aws-us-east-1-s4km4.hive.aws.ci.openshift.org"
+  },
+  {
+    "op": "add",
+    "path": "/data/VAULTINSECURETLS",
+    "value": "true"
   }
 ]
