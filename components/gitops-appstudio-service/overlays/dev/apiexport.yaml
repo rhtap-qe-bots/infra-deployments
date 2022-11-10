@@ -13,14 +13,14 @@ spec:
     identityHash: gitops-api
     resource: gitopsdeployments
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 57103cdd7a0af19b807cfbb517a7e2f71208e8860d2fcbff84a67f4859e4e39f
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 57103cdd7a0af19b807cfbb517a7e2f71208e8860d2fcbff84a67f4859e4e39f
     resource: applicationsnapshotenvironmentbindings
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 57103cdd7a0af19b807cfbb517a7e2f71208e8860d2fcbff84a67f4859e4e39f
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 57103cdd7a0af19b807cfbb517a7e2f71208e8860d2fcbff84a67f4859e4e39f
     resource: environments
