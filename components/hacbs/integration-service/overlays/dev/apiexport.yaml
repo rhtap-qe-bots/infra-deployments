@@ -9,26 +9,26 @@ spec:
   - md5-8a5fe3ad269e913b88cb0bf420c0f8a2.integrationtestscenarios.appstudio.redhat.com
   permissionClaims:
   - group: tekton.dev
-    identityHash: pipeline-service
+    identityHash: 72b2990e51b1931e9fee86e67091b721a8c32f407d762fc847d9d2316a988b52
     resource: pipelineruns
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 689ee4417ee58515cf1667fc3432a319750970ad4800646c2d37572edb5c4ddb
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 689ee4417ee58515cf1667fc3432a319750970ad4800646c2d37572edb5c4ddb
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 689ee4417ee58515cf1667fc3432a319750970ad4800646c2d37572edb5c4ddb
     resource: applicationsnapshots
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 689ee4417ee58515cf1667fc3432a319750970ad4800646c2d37572edb5c4ddb
     resource: environments
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 689ee4417ee58515cf1667fc3432a319750970ad4800646c2d37572edb5c4ddb
     resource: applicationsnapshotenvironmentbindings
   - group: appstudio.redhat.com
-    identityHash: release-service
+    identityHash: d56131c7066da8a7b1b1852c36a057bf9e9aa03656bac852b6749d017cd07168
     resource: releases
   - group: appstudio.redhat.com
-    identityHash: release-service
+    identityHash: d56131c7066da8a7b1b1852c36a057bf9e9aa03656bac852b6749d017cd07168
     resource: releaseplans
