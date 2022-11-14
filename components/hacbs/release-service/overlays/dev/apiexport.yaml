@@ -12,23 +12,23 @@ spec:
   - md5-a1a202cb4819f0c40034030c40f8526f.releasestrategies.appstudio.redhat.com
   permissionClaims:
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: snapshots
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: environments
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: snapshotenvironmentbindings
   - group: tekton.dev
-    identityHash: pipeline-service
+    identityHash: 72b2990e51b1931e9fee86e67091b721a8c32f407d762fc847d9d2316a988b52
     resource: pipelineruns
   - group: appstudio.redhat.com
-    identityHash: enterprisecontract
+    identityHash: bffdb88cb3a7141748425c5383e5e34dd216d175076e219e7cd7a3785c257ac7
     resource: enterprisecontractpolicies

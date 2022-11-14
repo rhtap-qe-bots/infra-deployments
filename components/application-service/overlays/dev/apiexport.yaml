@@ -15,26 +15,26 @@ spec:
   - group: apis.kcp.dev
     resource: apibindings
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: snapshots
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: snapshotenvironmentbindings
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: componentdetectionqueries
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: e0e2bc6b97c8fbe22e9abdba2cbd29e812cd7d28b1964676b230a6c4c0b9ec92
     resource: environments
   - group: appstudio.redhat.com
-    identityHash: spi
+    identityHash: ac2e90689cd303a4272a72558e48efa019dc803c0312b700c5b4f33e53d63bec
     resource: spiaccesstokens
   - group: appstudio.redhat.com
-    identityHash: spi
+    identityHash: ac2e90689cd303a4272a72558e48efa019dc803c0312b700c5b4f33e53d63bec
     resource: spiaccesstokenbindings
