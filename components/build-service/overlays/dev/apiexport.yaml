@@ -19,17 +19,17 @@ spec:
   - group: apis.kcp.dev
     resource: apibindings
   - group: tekton.dev
-    identityHash: pipeline-service
+    identityHash: 72b2990e51b1931e9fee86e67091b721a8c32f407d762fc847d9d2316a988b52
     resource: pipelineruns
   - group: pipelinesascode.tekton.dev
-    identityHash: pipeline-service
+    identityHash: 72b2990e51b1931e9fee86e67091b721a8c32f407d762fc847d9d2316a988b52
     resource: repositories
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 78a9955edc9793a097ca511321bbd66598764c1c6d0bfe95c86e209109bdd9c9
     resource: components
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 78a9955edc9793a097ca511321bbd66598764c1c6d0bfe95c86e209109bdd9c9
     resource: applications
   - group: appstudio.redhat.com
-    identityHash: application-api
+    identityHash: 78a9955edc9793a097ca511321bbd66598764c1c6d0bfe95c86e209109bdd9c9
     resource: snapshots
