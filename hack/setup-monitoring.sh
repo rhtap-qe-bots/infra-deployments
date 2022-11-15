@@ -46,7 +46,7 @@ datasources:
 - name: $NAME
   type: prometheus
   access: proxy
-  url: $URL
+  url: https://$URL
   basicAuth: false
   withCredentials: true
   isDefault: false
