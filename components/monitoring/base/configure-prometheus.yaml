@@ -1,4 +1,6 @@
----
+# vscode-kubernetes-tools: exclude
+# (because OpenShift routes seem to be interpreted as pods ¯\_(ツ)_/¯)
+--- 
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
@@ -229,14 +231,14 @@ metadata:
   annotations:
     openshift.io/description: used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
   namespace: appstudio-workload-monitoring
-  name: grafana
+  name: grafana-oauth
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   annotations:
     openshift.io/description: used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
-  name: grafana-cluster-monitoring-view
+  name: grafana-oauth-cluster-monitoring-view
   namespace: appstudio-workload-monitoring
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -244,7 +246,7 @@ roleRef:
   name: cluster-monitoring-view
 subjects:
 - kind: ServiceAccount
-  name: grafana
+  name: grafana-oauth
   namespace: appstudio-workload-monitoring
 
 
