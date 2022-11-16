@@ -51,4 +51,5 @@ if [ -z "$COMPONENT" ]; then
 else
   create-component $COMPONENT
 fi
-echo "Run this to show running builds: tkn pr list"
+echo "Run this from physical cluster to show running builds:
+oc get pipelineruns --all-namespaces"
