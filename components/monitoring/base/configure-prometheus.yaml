@@ -1,4 +1,6 @@
----
+# vscode-kubernetes-tools: exclude
+# (because OpenShift routes seem to be interpreted as pods ¯\_(ツ)_/¯)
+--- 
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
@@ -221,7 +223,7 @@ spec:
   tls:
     termination: reencrypt
 ---
-# The Grafana service account is used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
+# The `grafana-oauth` service account is used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -229,14 +231,14 @@ metadata:
   annotations:
     openshift.io/description: used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
   namespace: appstudio-workload-monitoring
-  name: grafana
+  name: grafana-oauth
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   annotations:
     openshift.io/description: used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
-  name: grafana-cluster-monitoring-view
+  name: grafana-oauth-cluster-monitoring-view
   namespace: appstudio-workload-monitoring
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -244,8 +246,30 @@ roleRef:
   name: cluster-monitoring-view
 subjects:
 - kind: ServiceAccount
-  name: grafana
+  name: grafana-oauth
   namespace: appstudio-workload-monitoring
+
+---
+# The `prometheus-k8s` service account is created by the Prometheus Operator to run Prometheus.
+# It is also used by the `oauth-proxy` sidecar container, hence it needs permissions to create `tokenreviews` and `subjectaccessreviews`
+# These permissions can be granted via the `thanos-querier` clusterrole
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    openshift.io/description: used by Grafana to fetch the metrics via the Auth proxy container of the Prometheus pods
+  name: prometheus-k8s-thanos-querier
+  namespace: appstudio-workload-monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: thanos-querier
+subjects:
+- kind: ServiceAccount
+  name: prometheus-k8s
+  namespace: appstudio-workload-monitoring
+
 
 
 
