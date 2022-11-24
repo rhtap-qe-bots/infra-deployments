@@ -6,7 +6,7 @@ resources:
 - release.yaml
 - integration.yaml
 - spi.yaml
-- e2e-tests.yaml
+- tekton-ci.yaml
 - cluster-registration.yaml
 - enterprise-contract.yaml
 - quality-dashboard.yaml

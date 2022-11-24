@@ -10,7 +10,6 @@ resources:
 # a URL to the "raw" version of the file instead.
 - https://raw.githubusercontent.com/hacbs-contract/enterprise-contract-controller/210c9331b2e28146627440a53f104ec46f3b93cf/config/rbac/enterprisecontractpolicy_viewer_role.yaml
 - https://raw.githubusercontent.com/hacbs-contract/enterprise-contract-controller/210c9331b2e28146627440a53f104ec46f3b93cf/config/rbac/enterprisecontractpolicy_editor_role.yaml
-- .tekton/
 
 images:
 - name: quay.io/redhat-appstudio/enterprise-contract-controller

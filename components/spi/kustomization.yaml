@@ -6,7 +6,6 @@ resources:
   - vault/
   - https://github.com/redhat-appstudio/service-provider-integration-operator/config/default?ref=f6d00f26628f215e8673e79639cea01f193cf535
   - oauth_route.yaml
-  - .tekton/
 
 images:
   - name:  quay.io/redhat-appstudio/service-provider-integration-operator
