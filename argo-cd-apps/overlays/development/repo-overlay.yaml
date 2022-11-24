@@ -68,7 +68,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: e2e-tests
+  name: tekton-ci
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
