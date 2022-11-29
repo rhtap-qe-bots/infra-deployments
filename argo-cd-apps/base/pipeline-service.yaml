@@ -7,9 +7,10 @@ spec:
   project: default
 
   source:
-    path: components/pipeline-service
-    repoURL: https://github.com/redhat-appstudio/infra-deployments.git
-    targetRevision: main
+    path: operator/gitops/argocd/pipeline-service
+    repoURL: https://github.com/openshift-pipelines/pipeline-service.git
+    targetRevision: new-main
+
 
   destination:
     namespace: default # not relevant yet since every object has an explicit namespace.
