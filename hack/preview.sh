@@ -101,7 +101,6 @@ fi
 
 rekor_server="rekor.$domain"
 sed -i.bak "s/rekor-server.enterprise-contract-service.svc/$rekor_server/" $ROOT/argo-cd-apps/base/enterprise-contract.yaml && rm $ROOT/argo-cd-apps/base/enterprise-contract.yaml.bak
-yq -i e ".data |= .\"transparency.url\"=\"https://$rekor_server\"" $ROOT/components/pipeline-service/tekton-chains/chains-config.yaml
 
 [ -n "${BUILD_SERVICE_IMAGE_REPO}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/build-service\")) |=.newName=\"${BUILD_SERVICE_IMAGE_REPO}\"" $ROOT/components/build-service/kustomization.yaml
 [ -n "${BUILD_SERVICE_IMAGE_TAG}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/build-service\")) |=.newTag=\"${BUILD_SERVICE_IMAGE_TAG}\"" $ROOT/components/build-service/kustomization.yaml
@@ -116,10 +115,6 @@ yq -i e ".data |= .\"transparency.url\"=\"https://$rekor_server\"" $ROOT/compone
 [[ -n "${JVM_BUILD_SERVICE_JDK8_BUILDER_IMAGE_REPO}" && ${JVM_BUILD_SERVICE_JDK8_BUILDER_IMAGE_TAG} ]] && yq -i e "(.data.\"builder-image.jdk8.image\") |=.=\"${JVM_BUILD_SERVICE_JDK8_BUILDER_IMAGE_REPO}:${JVM_BUILD_SERVICE_JDK8_BUILDER_IMAGE_TAG}\"" $ROOT/components/jvm-build-service/system-config.yaml
 [[ -n "${JVM_BUILD_SERVICE_JDK11_BUILDER_IMAGE_REPO}" && ${JVM_BUILD_SERVICE_JDK11_BUILDER_IMAGE_TAG} ]] && yq -i e "(.data.\"builder-image.jdk11.image\") |=.=\"${JVM_BUILD_SERVICE_JDK11_BUILDER_IMAGE_REPO}:${JVM_BUILD_SERVICE_JDK11_BUILDER_IMAGE_TAG}\"" $ROOT/components/jvm-build-service/system-config.yaml
 [[ -n "${JVM_BUILD_SERVICE_JDK17_BUILDER_IMAGE_REPO}" && ${JVM_BUILD_SERVICE_JDK17_BUILDER_IMAGE_TAG} ]] && yq -i e "(.data.\"builder-image.jdk17.image\") |=.=\"${JVM_BUILD_SERVICE_JDK17_BUILDER_IMAGE_REPO}:${JVM_BUILD_SERVICE_JDK17_BUILDER_IMAGE_TAG}\"" $ROOT/components/jvm-build-service/system-config.yaml
-
-# for jvm-build-service, since its service registry tests produces a ton of pipelineruns, and even the simple ones can produced more than 10,
-# we bump the keep setting to better allow for debug in jvm-build-service PRs
-[[ -n "${JVM_BUILD_SERVICE_PR_OWNER}" && ${JVM_BUILD_SERVICE_PR_SHA} ]] && yq -i e "(.spec.pruner.keep = 1000)" $ROOT/components/pipeline-service/openshift-pipelines/config.yaml
 
 [ -n "${HAS_IMAGE_REPO}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/application-service\")) |=.newName=\"${HAS_IMAGE_REPO}\"" $ROOT/components/has/kustomization.yaml
 [ -n "${HAS_IMAGE_TAG}" ] && yq -i e "(.images.[] | select(.name==\"quay.io/redhat-appstudio/application-service\")) |=.newTag=\"${HAS_IMAGE_TAG}\"" $ROOT/components/has/kustomization.yaml
