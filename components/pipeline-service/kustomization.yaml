@@ -8,8 +8,4 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-- openshift-pipelines
-- pipelines-as-code
-- pvc-cleaner
-- tekton-chains
-- tekton-results
+- git::https://github.com/openshift-pipelines/pipeline-service.git/operator/gitops/argocd/pipeline-service?ref=new-main
