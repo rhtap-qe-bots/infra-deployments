@@ -8,7 +8,9 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-- openshift-pipelines
-- pipelines-as-code
-- tekton-chains
-- tekton-results
+  - git::https://github.com/openshift-pipelines/pipeline-service.git/operator/gitops/argocd/pipeline-service?ref=5fa99020dfdddd1772c93dcd2d9e5b5ec998a962
+  - tekton-chains-controller-shared-secrets-rolebinding.yaml
+
+patchesStrategicMerge:
+  # Mount the shared secret in tekton Chains
+  - tekton-chains-controller-shared-secret.yaml
