@@ -1,20 +1,16 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/build-service/config/default?ref=a0e573c06819ff20a593268ec4251ca3ddb562c8
-- .tekton/
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/tkdchen/build-service/config/default?ref=8e87fbf98f9f98d12b75cbf53126a3401693f908
+  - .tekton/
 namespace: build-service
-
 images:
-- name: quay.io/redhat-appstudio/build-service
-  newName: quay.io/redhat-appstudio/build-service
-  newTag: a0e573c06819ff20a593268ec4251ca3ddb562c8
-
+  - name: quay.io/redhat-appstudio/build-service
+    newName: registry.build02.ci.openshift.org/ci-op-p9yp802p/pipeline
+    newTag: redhat-appstudio-build-service-image
 # Skip applying the Tekton operands while the Tekton operator is being installed.
 # See more information about this option, here:
 # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#skip-dry-run-for-new-custom-resources-types
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
