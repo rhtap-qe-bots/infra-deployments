@@ -1,8 +1,8 @@
 resources:
 - allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=398d723ee6e9a0a035630332b76bef9400e0a370
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=398d723ee6e9a0a035630332b76bef9400e0a370
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/config?ref=398d723ee6e9a0a035630332b76bef9400e0a370
+- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=eab9e74d830af210f727b33a3b5d32921435cfca
+- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=eab9e74d830af210f727b33a3b5d32921435cfca
+- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/config?ref=eab9e74d830af210f727b33a3b5d32921435cfca
 - .tekton/
 
 namespace: jvm-build-service
@@ -10,7 +10,7 @@ namespace: jvm-build-service
 images:
 - name: hacbs-jvm-operator
   newName: quay.io/redhat-appstudio/hacbs-jvm-controller
-  newTag: 398d723ee6e9a0a035630332b76bef9400e0a370
+  newTag: eab9e74d830af210f727b33a3b5d32921435cfca
 
 patches:
 - target:
@@ -21,7 +21,7 @@ patches:
       path: /spec/template/spec/containers/0/env/-
       value:
         name: IMAGE_TAG
-        value: 398d723ee6e9a0a035630332b76bef9400e0a370
+        value: eab9e74d830af210f727b33a3b5d32921435cfca
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
