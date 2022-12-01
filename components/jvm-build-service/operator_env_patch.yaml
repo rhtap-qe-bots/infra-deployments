@@ -3,4 +3,4 @@
   path: /spec/template/spec/containers/0/env
   value:
   - name: IMAGE_TAG
-    value: 398d723ee6e9a0a035630332b76bef9400e0a370
+    value: e3fc0c90e2bd235356f5c0e18e680d16049f6ae9
