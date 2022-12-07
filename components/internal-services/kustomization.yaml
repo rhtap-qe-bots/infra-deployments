@@ -1,0 +1,9 @@
+resources:
+- internal_service_request_role.yaml
+- internal_service_request_role_binding.yaml
+- internal_service_request_service_account.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: internal-services
