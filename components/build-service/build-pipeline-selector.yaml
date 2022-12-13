@@ -1,0 +1,24 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: BuildPipelineSelector
+metadata:
+  name: build-pipeline-selector
+spec:
+  selectors:
+    - name: Docker build
+      pipelineRef:
+        name: docker-build
+        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:165e81585fb7afd4fb17be0ef3851cb3962e281d
+      when:
+        dockerfile: true
+    - name: Java
+      pipelineRef:
+        name: java-builder
+        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-java-builder:165e81585fb7afd4fb17be0ef3851cb3962e281d
+      when:
+        language: java
+    - name: NodeJS
+      pipelineRef:
+        name: nodejs-builder
+        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-nodejs-builder:165e81585fb7afd4fb17be0ef3851cb3962e281d
+      when:
+        language: nodejs,node
