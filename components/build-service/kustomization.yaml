@@ -1,6 +1,7 @@
 resources:
 - allow-argocd-to-manage.yaml
 - https://github.com/redhat-appstudio/build-service/config/default?ref=2f02372b81f0d2957ef89ce01a378b8247d33030
+- build-pipeline-selector.yaml
 
 namespace: build-service
 
