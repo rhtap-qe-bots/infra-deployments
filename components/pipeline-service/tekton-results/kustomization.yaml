@@ -12,7 +12,7 @@ resources:
 images:
 - name: gcr.io/tekton-releases/github.com/tektoncd/results/cmd/api:v0.4.0
   newName: quay.io/redhat-appstudio/tekton-results-no-auth
-  newTag: stable
+  newTag: f3b3da2e10f840a2d87cbace6702fb5615ae0ad3
 
 patchesStrategicMerge:
 - patch-postgres-redhat-statefulset.yaml
