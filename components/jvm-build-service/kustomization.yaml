@@ -1,15 +1,15 @@
 resources:
 - allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=bd2439466a06c2f629d532f28f5c02355cf4b600
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=bd2439466a06c2f629d532f28f5c02355cf4b600
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/config?ref=bd2439466a06c2f629d532f28f5c02355cf4b600
+- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=e0764bf5e8d729304d2ba03e184170d9b1b28226
+- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=e0764bf5e8d729304d2ba03e184170d9b1b28226
+- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/config?ref=e0764bf5e8d729304d2ba03e184170d9b1b28226
 
 namespace: jvm-build-service
 
 images:
 - name: hacbs-jvm-operator
   newName: quay.io/redhat-appstudio/hacbs-jvm-controller
-  newTag: bd2439466a06c2f629d532f28f5c02355cf4b600
+  newTag: e0764bf5e8d729304d2ba03e184170d9b1b28226
 
 patches:
 - path: ./operator_env_patch.yaml
