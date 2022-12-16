@@ -31,19 +31,10 @@ More examples of using Kustomize to drive deployments using GitOps can be [found
 ## Component testing and building of images
 
 [Pipelines as Code](https://pipelinesascode.com/) is deployed and available for testing and building of images.
-To test and run builds for a component, create the necessary resources.
-The `gitops` component can be used as an example.
+To test and run builds for a component, add your github repository to `components/tekton-ci/repository.yaml`.
 
-These are the steps to create a component pipeline:
+Target repository has to have installed GitHub app - [AppStudio Staging CI](https://github.com/apps/appstudio-staging-ci) and pipelineRuns created in `.tekton` folder, example [Build Service](https://github.com/redhat-appstudio/build-service/tree/main/.tekton). Target image repository in quay.io must exist and robot account `redhat-appstudio+staginguser` has to have `write` permission on the repository.
 
-1) Create a `.tekton` directory under the component directory. Example: `components/(team-name)/.tekton`.
-2) Create the Tekton resources to trigger and run the pipeline.
-    - Repository: The Repository configures Pipelines as Code to monitor changes in your repository.
-    - PersistentVolumeClaim: A workspace for the pipeline.
-    - ServiceAccount: This will be the service account the pipeline will run as.
-    - Kustomization: This is necessary to install the component resources defined above.
-
-Target repository has to have installed GitHub app - [AppStudio Staging CI](https://github.com/apps/appstudio-staging-ci) and pipelineRuns created in `.tekton` folder, example [Build Service](https://github.com/redhat-appstudio/build-service/tree/main/.tekton)
 
 ## Maintaining your components
 
@@ -123,6 +114,8 @@ SPI Vault instance has to be manually initialized. There is a script to help wit
 
 ### Optional: Install Toolchain (Sandbox) Operators
 
+This part is automated if you use `--toolchain` parameter of `hack/bootstrap-cluster.sh`
+
 There are two scripts which you can use:
 
 - `./hack/sandbox-development-mode.sh` for development mode
@@ -137,6 +130,8 @@ Both of the scripts will:
     - Proxy URL.
 
 #### SSO
+
+This part is automated if you use `--toolchain --keycloak` parameters of `hack/bootstrap-cluster.sh`. These parameters install toolchain operators (`./hack/sandbox-development-mode.sh`) and configure them to use keycloak, which is automatically deployed as part of `development` overlay.
 
 In development mode, the Toolchain Operators are configured to use Keycloak instance that is internally used by the Sandbox team. If you want to reconfigure it to use your own Keycloak instance, you need to add a few parameters to `ToolchainConfig` resource in `toolchain-host-operator` namespace.
 This is an example of the needed parameters and their values:
