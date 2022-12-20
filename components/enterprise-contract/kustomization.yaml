@@ -19,6 +19,7 @@ configMapGenerator:
   namespace: enterprise-contract-service
   literals:
   - verify_ec_task_bundle=quay.io/hacbs-contract/ec-task-bundle:a98163a138491ba91ffce4e1f1853e3a52943f1e
+  - ec_policy_source=git::https://github.com/hacbs-contract/ec-policies.git?ref=912cdac9aa5e09f306211faef2a9374b920834a9
 
 images:
 - name: quay.io/redhat-appstudio/enterprise-contract-controller
