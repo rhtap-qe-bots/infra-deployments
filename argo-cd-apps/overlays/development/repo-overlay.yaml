@@ -1,1 +1,184 @@
-# Placeholder which will be replaced by preview.sh script
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: application-api
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: build-service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: build-templates
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-registration
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-sso
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: has
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: integration
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: internal-services
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jvm-build-service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pipeline-service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: release
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shared-resources
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spi
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spi-vault
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+    targetRevision: preview-issue/HACBS-888-1671618664
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: enterprise-contract
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+    - list:
+        elements:
+          - rekor: "off"
+  template:
+    metadata:
+      name: enterprise-contract
+    spec:
+      source:
+        repoURL: https://github.com/redhat-appstudio-qe/infra-deployments.git
+        targetRevision: preview-issue/HACBS-888-1671618664
