@@ -1,5 +1,6 @@
-
-# App Studio/HACBS Build System
+---
+title: App Studio/HACBS Build System
+---
 
 The App Studio/HACBS Build System is composed of the following components:
 
