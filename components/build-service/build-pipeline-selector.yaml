@@ -7,7 +7,7 @@ spec:
     - name: Docker build
       pipelineRef:
         name: docker-build
-        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:96ab9d418f2e4e1b580e3d3a96d178272dae0487
+        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:0e318ba24676bb9fd6bf584c43371b4484c374d1
       pipelineParams:
         - name: hacbs
           value: "true"
@@ -16,7 +16,7 @@ spec:
     - name: Java
       pipelineRef:
         name: java-builder
-        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-java-builder:96ab9d418f2e4e1b580e3d3a96d178272dae0487
+        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-java-builder:0e318ba24676bb9fd6bf584c43371b4484c374d1
       pipelineParams:
         - name: hacbs
           value: "true"
@@ -25,7 +25,7 @@ spec:
     - name: NodeJS
       pipelineRef:
         name: nodejs-builder
-        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-nodejs-builder:96ab9d418f2e4e1b580e3d3a96d178272dae0487
+        bundle: quay.io/redhat-appstudio-tekton-catalog/pipeline-nodejs-builder:0e318ba24676bb9fd6bf584c43371b4484c374d1
       pipelineParams:
         - name: hacbs
           value: "true"
