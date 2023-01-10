@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: buildpipelineselectors-reader
+rules:
+- apiGroups: ["appstudio.redhat.com"]
+  resources: ["buildpipelineselectors"]
+  verbs: ["list", "get"]
