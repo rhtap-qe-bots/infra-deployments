@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: quality-exporters
+  name: dora-metrics
 
 spec:
   project: default
 
   source:
-    path: components/quality-exporter
+    path: components/dora-metrics
     repoURL: https://github.com/redhat-appstudio/infra-deployments.git
     targetRevision: main
 
   destination:
-    namespace: quality-exporters
+    namespace: dora-metrics
     server: https://kubernetes.default.svc
 
   syncPolicy:

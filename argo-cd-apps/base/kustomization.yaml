@@ -10,7 +10,7 @@ resources:
 - tekton-ci.yaml
 - cluster-registration.yaml
 - enterprise-contract.yaml
-- quality-exporter.yaml
+- dora-metrics.yaml
 - hac-pact-broker.yaml
 - build-service.yaml
 - jvm-build-service.yaml
