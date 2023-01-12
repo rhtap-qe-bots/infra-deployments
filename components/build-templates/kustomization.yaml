@@ -11,8 +11,8 @@ configMapGenerator:
 - name: build-pipelines-defaults
   namespace: build-templates
   literals:
-  - default_build_bundle=quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:e6ac988666adc39d265c979aabb48625013421fa
-  - hacbs_build_bundle=quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:e6ac988666adc39d265c979aabb48625013421fa
+  - default_build_bundle=quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:3f3cc83c2af3a6b05111ee0dd3a2aa780aec3c12
+  - hacbs_build_bundle=quay.io/redhat-appstudio-tekton-catalog/pipeline-docker-build:3f3cc83c2af3a6b05111ee0dd3a2aa780aec3c12
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
