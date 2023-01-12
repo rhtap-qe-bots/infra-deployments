@@ -10,7 +10,7 @@ resources:
 - tekton-ci.yaml
 - cluster-registration.yaml
 - enterprise-contract.yaml
-- quality-dashboard.yaml
+- quality-exporter.yaml
 - hac-pact-broker.yaml
 - build-service.yaml
 - jvm-build-service.yaml
@@ -21,6 +21,6 @@ resources:
 - monitoring-workload-prometheus.yaml
 - monitoring-workload-grafana.yaml
 - monitoring-workload-logging.yaml
-
+- quality-dashboard.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
