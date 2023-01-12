@@ -1,5 +1,5 @@
 resources:
-- https://github.com/redhat-appstudio/quality-dashboard/backend/deploy/base?ref=762bbfceee955805ded3d2819434aeb95eff25a9
+- https://github.com/albarbaro/exporters/deploy/base?ref=762bbfceee955805ded3d2819434aeb95eff25a9
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
