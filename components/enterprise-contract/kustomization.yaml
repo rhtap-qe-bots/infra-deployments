@@ -16,7 +16,7 @@ configMapGenerator:
     literals:
       - verify_ec_task_bundle=quay.io/hacbs-contract/ec-task-bundle:741b8a1fd9a3e1019e494d5136000aefde10c590@sha256:eb0cd5e3978c372bc82a5e0ab34d7d4d9c74ef1d18d6ef424ea15d1c0e881d44
       - ec_policy_source=oci::https://quay.io/hacbs-contract/ec-release-policy:git-6a265c0@sha256:286a6ffcdb11618b336acccae6d06ba1a7d1c1340618820a8a710d94a836726a
-      - ec_policy_source=oci::https://quay.io/hacbs-contract/ec-policy-data:git-6a265c0@sha256:27cc1d82d0b66334827bc3bb89c43dd07838c19fe9e7d619f6dabcc2ae5d39ed
+      - ec_data_source=oci::https://quay.io/hacbs-contract/ec-policy-data:git-6a265c0@sha256:27cc1d82d0b66334827bc3bb89c43dd07838c19fe9e7d619f6dabcc2ae5d39ed
 images:
   - name: quay.io/redhat-appstudio/enterprise-contract-controller
     newName: quay.io/redhat-appstudio/enterprise-contract-controller
