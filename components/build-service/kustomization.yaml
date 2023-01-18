@@ -1,20 +1,16 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/build-service/config/default?ref=a9f10055dbc4a741fb3081ceee2e3099006ec0ac
-- build-pipeline-selector.yaml
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/Michkov/build-service/config/default?ref=533f6e1f1ef171fba7459967cc1dac61704c021f
+  - build-pipeline-selector.yaml
 # Skip applying the build-service operands (BuildPipelineSelector) while the build-service operator is being installed.
 # See more information about this option, here:
 # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#skip-dry-run-for-new-custom-resources-types
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-
 namespace: build-service
-
 images:
-- name: quay.io/redhat-appstudio/build-service
-  newName: quay.io/redhat-appstudio/build-service
-  newTag: a9f10055dbc4a741fb3081ceee2e3099006ec0ac
-
+  - name: quay.io/redhat-appstudio/build-service
+    newName: registry.build02.ci.openshift.org/ci-op-0pzk0tw7/pipeline
+    newTag: redhat-appstudio-build-service-image
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
