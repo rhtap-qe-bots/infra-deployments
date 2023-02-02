@@ -3,6 +3,7 @@ resources:
 - serviceaccount.yaml
 - pvc.yaml
 - repository.yaml
+- e2e/
 
 # Skip applying the Tekton/PaC operands while the Tekton/PaC operator is being installed.
 # See more information about this option, here: 
