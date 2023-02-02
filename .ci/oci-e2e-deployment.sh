@@ -12,7 +12,7 @@ export MY_GIT_FORK_REMOTE="qe"
 export MY_GITHUB_ORG="redhat-appstudio-qe"
 export MY_GITHUB_TOKEN="${GITHUB_TOKEN}"
 export E2E_APPLICATIONS_NAMESPACE=appstudio-e2e-test
-export SHARED_SECRET_NAMESPACE="build-templates"
+export SHARED_SECRET_NAMESPACE="build-templates-e2e"
 
 # REPO_OWNER/REPO_NAME/PULL_NUMBER are not defined in openshift-ci periodics jobs
 export REPO_OWNER=${REPO_OWNER:-"redhat-appstudio"}

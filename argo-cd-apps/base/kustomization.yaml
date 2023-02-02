@@ -16,7 +16,6 @@ resources:
 - build-service.yaml
 - jvm-build-service.yaml
 - pipeline-service.yaml
-- build-templates.yaml
 - shared-resources.yaml
 - internal-services.yaml
 - monitoring-workload-prometheus.yaml
