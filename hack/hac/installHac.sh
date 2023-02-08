@@ -68,7 +68,7 @@ installBonfire(){
 
 reserveNamespace() {
     echo "Reserving namespace."
-    KUBECONFIG=$HAC_KUBECONFIG NAMESPACE=$(bonfire namespace reserve)
+    NAMESPACE=$(KUBECONFIG=$HAC_KUBECONFIG bonfire namespace reserve)
 }
 
 installHac() {
