@@ -15,7 +15,7 @@ configMapGenerator:
   - name: ec-defaults
     namespace: enterprise-contract-service
     literals:
-      - verify_ec_task_bundle=quay.io/hacbs-contract/ec-task-bundle:a30537c1e3f17187b099453704cacd6f18db14f0@sha256:eab10cfd43093ac7422bf3d576285c5315b0aca7b6248be8b7ff357b524ff669
+      - verify_ec_task_bundle=quay.io/hacbs-contract/ec-task-bundle:a64277ea6bad522f31125a9febe3efb36a5976b5@sha256:ee9ada4c8ec87d2edc92e29348b55d8ef6ae32edfa49971ee344b974092b63f1
       - ec_policy_source=oci::https://quay.io/hacbs-contract/ec-release-policy:git-8ca675b@sha256:caf2a8991ca3feb80edfc8ff7c1930ed09481a7c8d934bb719007bffc1153ecc
       - ec_data_source=oci::https://quay.io/hacbs-contract/ec-policy-data:git-a3ca9be@sha256:d548e0808348c017782ae87920c94d45ad7117e0e630b5b991c8df557c22a844
 images:
