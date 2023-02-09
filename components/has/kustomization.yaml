@@ -5,9 +5,9 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-  - name: quay.io/redhat-appstudio/application-service
+  - name: quay.io/flacatus/application-service
     newName: quay.io/flacatus/application-service
-    newTag: devhas247
+    newTag: 247-1
 configMapGenerator:
   - literals:
       - GITHUB_ORG=redhat-appstudio-qe
