@@ -7,7 +7,7 @@ kind: Kustomization
 images:
   - name: quay.io/redhat-appstudio/application-service
     newName: quay.io/flacatus/application-service
-    newTag: 247-1
+    newTag: devhas247
 configMapGenerator:
   - literals:
       - GITHUB_ORG=redhat-appstudio-qe
