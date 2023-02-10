@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
 
@@ -121,3 +122,4 @@ deployProxy
 echo "namespace: $NAMESPACE"
 
 echo "THIS IS THE END"
+set +x
