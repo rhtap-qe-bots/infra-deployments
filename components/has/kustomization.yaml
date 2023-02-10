@@ -17,4 +17,3 @@ namespace: application-service
 patches:
   - ./manager_resources_patch.yaml
   - ./pprof_patch.yaml
-
