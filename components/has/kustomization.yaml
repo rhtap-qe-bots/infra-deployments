@@ -5,9 +5,9 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-  - name: quay.io/redhat-appstudio/application-service
+  - name: quay.io/jcollier/application-service
     newName: quay.io/jcollier/application-service # quay.io/jcollier/application-service:fixasebupdate
-    newTag: fixasebupdate
+    newTag: anotersebtest
 configMapGenerator:
   - literals:
       - GITHUB_ORG=redhat-appstudio-qe
