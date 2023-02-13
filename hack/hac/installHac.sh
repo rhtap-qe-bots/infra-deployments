@@ -109,7 +109,7 @@ EOF
 
 deployProxy() {
     STONESOUP_API_ENDPOINT=https://$(oc get route/api --kubeconfig=$STONESOUP_KUBECONFIG -n toolchain-host-operator  -o jsonpath="{.spec.host}")
-    oc process --kubeconfig=$HAC_KUBECONFIG -f https://raw.githubusercontent.com/openshift/hac-dev/main/tmp/hac-proxy.yaml -n $NAMESPACE -p NAMESPACE=$NAMESPACE -p ENV_NAME=env-$NAMESPACE -p HOSTNAME=$(oc get feenv env-$NAMESPACE -o=jsonpath='{.spec.hostname}') | oc create --kubeconfig=$HAC_KUBECONFIG -f -
+    oc process --kubeconfig=$HAC_KUBECONFIG -f https://raw.githubusercontent.com/openshift/hac-dev/main/tmp/hac-proxy.yaml -n $NAMESPACE -p NAMESPACE=$NAMESPACE -p ENV_NAME=env-$NAMESPACE -p HOSTNAME=$(oc get --kubeconfig=$HAC_KUBECONFIG feenv env-$NAMESPACE -o=jsonpath='{.spec.hostname}') | oc create --kubeconfig=$HAC_KUBECONFIG -f -
     oc set env Deployment/hac-proxy --kubeconfig=$HAC_KUBECONFIG -n $NAMESPACE HJ_K8S=$STONESOUP_API_ENDPOINT HJ_PROXY_SSL=false
 }
 
