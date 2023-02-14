@@ -2,12 +2,17 @@
   {
     "op": "replace",
     "path": "/data/VAULTHOST",
-    "value": "https://vault-spi-vault.apps.56f67f1d6eb088654fe8-mgmt.origin-ci-int-aws.dev.rhcloud.com"
+    "value": "https://vault-spi-vault.apps.cluster-z5lh7.z5lh7.sandbox1540.opentlc.com"
   },
   {
     "op": "replace",
     "path": "/data/BASEURL",
-    "value": "https://spi-oauth-spi-system.apps.56f67f1d6eb088654fe8-mgmt.origin-ci-int-aws.dev.rhcloud.com"
+    "value": "https://spi-oauth-spi-system.apps.cluster-z5lh7.z5lh7.sandbox1540.opentlc.com"
+  },
+  {
+    "op": "add",
+    "path": "/data/VAULTINSECURETLS",
+    "value": "true"
   },
   {
     "op": "add",
