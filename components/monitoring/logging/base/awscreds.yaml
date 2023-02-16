@@ -1,0 +1,25 @@
+---
+apiVersion: cloudcredential.openshift.io/v1
+kind: CredentialsRequest
+metadata:
+  name: fluentd-logforward-credrequest
+  namespace: openshift-cloud-credential-operator
+spec:
+  providerSpec:
+    apiVersion: cloudcredential.openshift.io/v1
+    kind: AWSProviderSpec
+    statementEntries:
+      - action:
+          - logs:PutLogEvents
+          - logs:CreateLogGroup
+          - logs:PutRetentionPolicy
+          - logs:CreateLogStream
+          - logs:DescribeLogGroups
+          - logs:DescribeLogStreams
+        effect: Allow
+        resource: arn:aws:logs:*:*:*
+  secretRef:
+    name: fluentd-logforward
+    namespace: openshift-logging
+  serviceAccountNames:
+    - logcollector
