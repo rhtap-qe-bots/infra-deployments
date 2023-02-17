@@ -11,10 +11,10 @@ commonAnnotations:
 
 namespace: build-service
 
-images:
+images: #quay.io/mmorhun/build-operator:STONEBLD-754
 - name: quay.io/redhat-appstudio/build-service
-  newName: quay.io/redhat-appstudio/build-service
-  newTag: d02e2a69c094a73b59d5cdf6a6fabef90d44ff9b
+  newName: quay.io/mmorhun/build-operator
+  newTag: STONEBLD-754
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
