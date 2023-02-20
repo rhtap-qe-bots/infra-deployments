@@ -19,7 +19,6 @@ spec:
   outputs:
     - cloudwatch:
         groupBy: logType
-        groupPrefix: valentine-stage
         region: us-east-1
       name: remote-cloudwatch
       secret:
