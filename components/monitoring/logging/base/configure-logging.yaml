@@ -5,41 +5,10 @@ metadata:
   name: "instance"
   namespace: "openshift-logging"
 spec:
-  managementState: "Managed"
-  logStore:
-    type: "elasticsearch"
-    retentionPolicy:
-      application:
-        maxAge: 1d
-      infra:
-        maxAge: 7d
-      audit:
-        maxAge: 7d
-    elasticsearch:
-      nodeCount: 3
-      storage:
-        storageClassName: "<storage_class_name>"
-        size: 200G
-      resources:
-          limits:
-            memory: "16Gi"
-          requests:
-            memory: "16Gi"
-      proxy:
-        resources:
-          limits:
-            memory: 256Mi
-          requests:
-            memory: 256Mi
-      redundancyPolicy: "SingleRedundancy"
-  visualization:
-    type: "kibana"
-    kibana:
-      replicas: 1
   collection:
     logs:
-      type: "fluentd"
       fluentd: {}
+      type: fluentd
 ---
 apiVersion: logging.openshift.io/v1
 kind: ClusterLogForwarder
@@ -49,20 +18,18 @@ metadata:
 spec:
   outputs:
     - cloudwatch:
-        groupPrefix: valentines
+        groupBy: logType
+        groupPrefix: valentine-stage
         region: us-east-1
-      name: remote-elasticsearch
+      name: remote-cloudwatch
       secret:
-        name: elasticsearch
-      syslog:
-        rfc: RFC5424
-      type: elasticsearch
-      url: 'https://monitoring.us-east-1.amazonaws.com'
+        name: cloudwatch-forwarder
+      type: cloudwatch
   pipelines:
     - inputRefs:
         - application
         - audit
         - infrastructure
-      name: enable-default-log-store
+      name: fluentd-cloudwatch-logforward
       outputRefs:
-        - default
+        - remote-cloudwatch
