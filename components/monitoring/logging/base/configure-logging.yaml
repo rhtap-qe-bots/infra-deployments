@@ -2,8 +2,9 @@
 apiVersion: "logging.openshift.io/v1"
 kind: "ClusterLogging"
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: "instance"
-  namespace: "openshift-logging"
 spec:
   collection:
     logs:
@@ -13,8 +14,9 @@ spec:
 apiVersion: logging.openshift.io/v1
 kind: ClusterLogForwarder
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: instance
-  namespace: openshift-logging
 spec:
   outputs:
     - cloudwatch:

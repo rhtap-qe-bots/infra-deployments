@@ -4,7 +4,7 @@ resources:
 - install-logging-operator.yaml
 - configure-logging.yaml
 
-namespace: "appstudio-workload-monitoring"
+namespace: "openshift-logging"
 
 generatorOptions:
   disableNameSuffixHash: true
