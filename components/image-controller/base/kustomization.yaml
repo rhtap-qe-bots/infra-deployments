@@ -1,11 +1,11 @@
 resources:
 - allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/image-controller/config/default?ref=ad7d686650f9e7a189d8b4005e031f8917fde27d
+- https://github.com/redhat-appstudio/image-controller/config/default?ref=b7e66a9df587fb09e0b57890d23086b43570e407
 
 images:
 - name: quay.io/shbose/image-controller
   newName: quay.io/redhat-appstudio/image-controller
-  newTag: ad7d686650f9e7a189d8b4005e031f8917fde27d
+  newTag: b7e66a9df587fb09e0b57890d23086b43570e407
 
 namespace: image-controller
 
