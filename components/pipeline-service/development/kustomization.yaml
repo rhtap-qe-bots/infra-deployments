@@ -8,7 +8,8 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-  - git::https://github.com/openshift-pipelines/pipeline-service.git/operator/gitops/argocd/pipeline-service?ref=c3d1e5f85e64205a3c4fd7476d0ef0d03e4b570f
+  - git::https://github.com/openshift-pipelines/pipeline-service.git/developer/openshift/gitops/argocd/pipeline-service?ref=2ed2b6521697ab2bec81791229d69aead479bbb5
+  - git::https://github.com/openshift-pipelines/pipeline-service.git/developer/openshift/gitops/argocd/pipeline-service-storage?ref=2ed2b6521697ab2bec81791229d69aead479bbb5
 
 components:
   - ../components/tekton-chains
