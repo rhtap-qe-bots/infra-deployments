@@ -18,14 +18,14 @@ resources:
 - https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/rbac/node_role.yaml
 - https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/rbac/privileged_role.yaml
 - https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/rbac/prometheus_rolebinding.yaml
-- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/webhook/configmap.yaml
-- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/webhook/deployment.yaml
-- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/pdb.yaml
-- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/sa.yaml
-- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/service.yaml
-- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/validating_webhook_configuration.yaml
-- https://raw.githubusercontent.com/openshift/api/9d91c1f6cfd40449bd2af8a6b697a3bf7baf933b/sharedresource/v1alpha1/0000_10_sharedconfigmap.crd.yaml
-- https://raw.githubusercontent.com/openshift/api/9d91c1f6cfd40449bd2af8a6b697a3bf7baf933b/sharedresource/v1alpha1/0000_10_sharedsecret.crd.yaml
+#- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/webhook/configmap.yaml
+#- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/e2363205aacfcc2dad711b32e24e73e11471652d/assets/webhook/deployment.yaml
+#- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/pdb.yaml
+#- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/sa.yaml
+#- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/service.yaml
+#- https://raw.githubusercontent.com/openshift/csi-driver-shared-resource-operator/f3fdcbf26d58386fdeb4a866acad6518be8682af/assets/webhook/validating_webhook_configuration.yaml
+#- https://raw.githubusercontent.com/openshift/api/9d91c1f6cfd40449bd2af8a6b697a3bf7baf933b/sharedresource/v1alpha1/0000_10_sharedconfigmap.crd.yaml
+#- https://raw.githubusercontent.com/openshift/api/9d91c1f6cfd40449bd2af8a6b697a3bf7baf933b/sharedresource/v1alpha1/0000_10_sharedsecret.crd.yaml
 # the scc.yaml can be removed when we move to 4.13 OCP, as the storage team's CSI in-line security 
 - scc.yaml
 - redhat-appstudio-user-workload-sharedsecret.yaml
