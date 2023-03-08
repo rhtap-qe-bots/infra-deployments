@@ -1,27 +1,22 @@
 resources:
-- allow-argocd-to-manage.yaml
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/crds/base?ref=1dbb0cf59ab05b2c020171dc19c0014a164f39eb
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/base?ref=1dbb0cf59ab05b2c020171dc19c0014a164f39eb
-- https://github.com/redhat-appstudio/jvm-build-service/deploy/operator/config?ref=1dbb0cf59ab05b2c020171dc19c0014a164f39eb
-
+  - allow-argocd-to-manage.yaml
+  - https://github.com/stuartwdouglas/jvm-build-service/deploy/crds/base?ref=5884ab9636228ebe5d2b1805bd3d8567cb9f9699
+  - https://github.com/stuartwdouglas/jvm-build-service/deploy/operator/base?ref=5884ab9636228ebe5d2b1805bd3d8567cb9f9699
+  - https://github.com/stuartwdouglas/jvm-build-service/deploy/operator/config?ref=5884ab9636228ebe5d2b1805bd3d8567cb9f9699
 # Skip applying the jvm-build-service operands (SystemConfig) while the jvm-build-service operator is being installed.
 # See more information about this option, here:
 # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#skip-dry-run-for-new-custom-resources-types
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-
 namespace: jvm-build-service
-
 images:
-- name: hacbs-jvm-operator
-  newName: quay.io/redhat-appstudio/hacbs-jvm-controller
-  newTag: 1dbb0cf59ab05b2c020171dc19c0014a164f39eb
-
+  - name: hacbs-jvm-operator
+    newName: registry.build05.ci.openshift.org/ci-op-xwxwdk9b/pipeline
+    newTag: redhat-appstudio-jvm-build-service-image
 patches:
-- path: ./operator_env_patch.yaml
-  target:
-    kind: Deployment
-    name: hacbs-jvm-operator
-
+  - path: ./operator_env_patch.yaml
+    target:
+      kind: Deployment
+      name: hacbs-jvm-operator
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
