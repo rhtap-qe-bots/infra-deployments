@@ -1,4 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- https://github.com/redhat-appstudio/build-service/config/monitoring/grafana-dashboards/?ref=12adba270722dde8c7b8553ddceee2167284a62b
+- https://github.com/redhat-appstudio/build-service/config/monitoring/grafana-dashboards/?ref=ed9970c49a4ad5103141e51a2c33bafe9f254b54
