@@ -2,5 +2,9 @@
 - op: add
   path: /spec/template/spec/containers/0/env
   value:
-  - name: IMAGE_TAG
-    value: cc70d4e85a5ec33256921f836e1fde8359eb04d4
+    - name: IMAGE_TAG
+      value: ""
+    - name: JVM_BUILD_SERVICE_CACHE_IMAGE
+      value: registry.build05.ci.openshift.org/ci-op-zz2d8d28/pipeline@sha256:84542f03afe13926364e698f6e3176b5370ed02e92b5faed509814e7588955cf
+    - name: JVM_BUILD_SERVICE_REQPROCESSOR_IMAGE
+      value: registry.build05.ci.openshift.org/ci-op-zz2d8d28/pipeline@sha256:db91a05e856fa6b1b1766ae3ae4dd8c1a182befb28bda73f55afcebd46f40bb6
