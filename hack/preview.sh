@@ -198,7 +198,7 @@ fi
 
 # Create the root Application
 oc apply -k $ROOT/argo-cd-apps/app-of-app-sets/development
-
+           
 while [ "$(oc get applications.argoproj.io all-application-sets -n openshift-gitops -o jsonpath='{.status.health.status} {.status.sync.status}')" != "Healthy Synced" ]; do
   echo Waiting for sync of all-application-sets argoCD app
   sleep 5
@@ -213,6 +213,7 @@ if echo $APPS | grep -q spi; then
     echo Initializing SPI
     curl https://raw.githubusercontent.com/redhat-appstudio/e2e-tests/${E2E_TESTS_COMMIT_SHA:-main}/scripts/spi-e2e-setup.sh | VAULT_PODNAME='vault-0' VAULT_NAMESPACE='spi-vault' bash -s
     SPI_APP_ROLE_FILE=$ROOT/.tmp/approle_secret.yaml
+    echo "=================="
     if [ -f "$SPI_APP_ROLE_FILE" ]; then
         echo "$SPI_APP_ROLE_FILE exists."
         kubectl apply -f $SPI_APP_ROLE_FILE  -n spi-system
