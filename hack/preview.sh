@@ -203,6 +203,7 @@ while [ "$(oc get applications.argoproj.io all-application-sets -n openshift-git
   sleep 5
 done
 
+sleep 60
 APPS=$(kubectl get apps -n openshift-gitops -o name)
 echo "APPS:"
 echo "$APPS"
