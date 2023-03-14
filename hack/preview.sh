@@ -204,7 +204,8 @@ while [ "$(oc get applications.argoproj.io all-application-sets -n openshift-git
 done
 
 APPS=$(kubectl get apps -n openshift-gitops -o name)
-
+echo "APPS:"
+echo "$APPS"
 if echo $APPS | grep -q spi; then
   if [ "$(oc get applications.argoproj.io spi-in-cluster-local -n openshift-gitops -o jsonpath='{.status.health.status} {.status.sync.status}')" != "Healthy Synced" ]; then
     echo Initializing SPI
