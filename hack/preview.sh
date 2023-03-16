@@ -1,5 +1,4 @@
 #!/bin/bash -e
-set -x
 set -o pipefail
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"/..
@@ -198,22 +197,21 @@ fi
 
 # Create the root Application
 oc apply -k $ROOT/argo-cd-apps/app-of-app-sets/development
-           
+
 while [ "$(oc get applications.argoproj.io all-application-sets -n openshift-gitops -o jsonpath='{.status.health.status} {.status.sync.status}')" != "Healthy Synced" ]; do
   echo Waiting for sync of all-application-sets argoCD app
   sleep 5
 done
 
-sleep 60
-APPS=$(kubectl get apps -n openshift-gitops -o name)
-echo "APPS:"
-echo "$APPS"
-if echo $APPS | grep -q spi; then
+if ! timeout 100s bash -c "while ! kubectl get applications.argoproj.io -n openshift-gitops -o name | grep -q spi-in-cluster-local; do printf '.'; sleep 5; done"; then
+  printf "Application spi-in-cluster-local not found (timeout)\n" 
+  kubectl get apps -n openshift-gitops -o name
+  exit 1
+else
   if [ "$(oc get applications.argoproj.io spi-in-cluster-local -n openshift-gitops -o jsonpath='{.status.health.status} {.status.sync.status}')" != "Healthy Synced" ]; then
     echo Initializing SPI
     curl https://raw.githubusercontent.com/redhat-appstudio/e2e-tests/${E2E_TESTS_COMMIT_SHA:-main}/scripts/spi-e2e-setup.sh | VAULT_PODNAME='vault-0' VAULT_NAMESPACE='spi-vault' bash -s
     SPI_APP_ROLE_FILE=$ROOT/.tmp/approle_secret.yaml
-    echo "=================="
     if [ -f "$SPI_APP_ROLE_FILE" ]; then
         echo "$SPI_APP_ROLE_FILE exists."
         kubectl apply -f $SPI_APP_ROLE_FILE  -n spi-system
@@ -224,9 +222,11 @@ if echo $APPS | grep -q spi; then
   fi
 fi
 
+
 # Configure Pipelines as Code and required credentials
 $ROOT/hack/build/setup-pac-integration.sh
 
+APPS=$(kubectl get apps -n openshift-gitops -o name)
 # trigger refresh of apps
 for APP in $APPS; do
   kubectl patch $APP -n openshift-gitops --type merge -p='{"metadata": {"annotations":{"argocd.argoproj.io/refresh": "hard"}}}' &
