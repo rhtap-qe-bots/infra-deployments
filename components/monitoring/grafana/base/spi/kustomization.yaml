@@ -1,4 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- https://github.com/redhat-appstudio/service-provider-integration-operator/config/monitoring/base?ref=ee065809ae70788b257500b0ac993b493e9b4aaf
+- https://github.com/redhat-appstudio/service-provider-integration-operator/config/monitoring/base?ref=238e8328f549db56b6f256dc0f6477c9affcd0ba
