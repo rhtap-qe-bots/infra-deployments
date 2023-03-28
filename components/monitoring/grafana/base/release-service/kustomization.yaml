@@ -1,4 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- https://github.com/redhat-appstudio/release-service/config/monitoring/?ref=21edb2dadc4e6031568689ab46ff78ad3a55de8c
+- https://github.com/redhat-appstudio/release-service/config/monitoring/?ref=be5bbdadd1409b00d8333382c71f343c67b151d6
