@@ -4,6 +4,7 @@ resources:
   - ../../../base
   - ../../../base/external-secrets
   - https://github.com/redhat-appstudio/service-provider-integration-operator/config/overlays/openshift_vault?ref=73ed86e9a5eece6d55183f7ecd14aed754ede23b
+  - spi-aws-credentials-external-secret.yaml
 
 namespace: spi-system
 
