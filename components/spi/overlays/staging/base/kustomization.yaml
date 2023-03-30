@@ -11,10 +11,10 @@ namespace: spi-system
 images:
   - name:  quay.io/redhat-appstudio/service-provider-integration-operator
     newName: quay.io/redhat-appstudio/service-provider-integration-operator
-    newTag: 82aa57131a3d2426f9c26595bc27908bf2249417
+    newTag: 157da860c84c1a54b4d0bddd31e5ed530c17838e
   - name: quay.io/redhat-appstudio/service-provider-integration-oauth
     newName: quay.io/redhat-appstudio/service-provider-integration-oauth
-    newTag: 82aa57131a3d2426f9c26595bc27908bf2249417
+    newTag: 157da860c84c1a54b4d0bddd31e5ed530c17838e
 
 patches:
   - target:
