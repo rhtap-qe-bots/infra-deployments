@@ -8,6 +8,7 @@ images:
   - name: quay.io/redhat-appstudio/application-service
     newName: quay.io/flacatus/application-service
     newTag: latest
+
 configMapGenerator:
   - literals:
       - GITHUB_ORG=redhat-appstudio-qe
@@ -17,3 +18,4 @@ namespace: application-service
 patches:
   - ./manager_resources_patch.yaml
   - ./pprof_patch.yaml
+
